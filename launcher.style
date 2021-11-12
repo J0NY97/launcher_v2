@@ -28,7 +28,8 @@ win_main
 main_menu
 {
 	xywh : 0, 0, 1280, 720;
-	bg_image_default : resources/test2.bmp;
+	bg_color : 0xffb0b0b0;
+	bg_image : resources/test2.bmp;
 };
 
 ///////////////////
@@ -38,6 +39,7 @@ main_menu
 play_button : menu_button_prefab
 {
 	title : play;
+	font : fonts/AmazDoom.ttf;
 };
 
 play_menu : main_menu_prefab
