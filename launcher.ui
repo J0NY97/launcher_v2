@@ -4,6 +4,7 @@ Window win_main
 {
 	Menu main_menu
 	{
+		Button play_button {};
 		Menu play_menu
 		{
 			Menu story_menu
@@ -15,10 +16,12 @@ Window win_main
 
 			};
 		};
+		Button editor_button {};
 		Menu editor_menu
 		{
 
 		};
+		Button settings_button {};
 		Menu settings_menu
 		{
 
