@@ -1,0 +1,10 @@
+win_main
+{
+	xywh : 100, 100, 1280, 720;
+};
+
+main_menu
+{
+	xywh : 0, 0, 1280, 720;
+	bg_image_default : resources/test2.bmp;
+};

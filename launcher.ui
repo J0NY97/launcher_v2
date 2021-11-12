@@ -1,0 +1,28 @@
+style : launcher.style;
+
+Window win_main
+{
+	Menu main_menu
+	{
+		Menu play_menu
+		{
+			Menu story_menu
+			{
+
+			};
+			Menu endless_menu
+			{
+
+			};
+		};
+		Menu editor_menu
+		{
+
+		};
+		Menu settings_menu
+		{
+
+		};
+		Button quit_button {};
+	};
+};
