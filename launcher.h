@@ -5,8 +5,12 @@
 #include "libpf.h"
 #include "libui.h"
 
+#include <dirent.h>
+
 # define GRAYISH_BLUEISH 0xff505168
 # define GREENISH 0xffb3c0a4
+
+# define MAP_PATH "C:/Users/Jony/source/repos/map_editor_v2/maps/"
 
 typedef struct s_launcher
 {
@@ -33,6 +37,9 @@ typedef struct s_launcher
 
 	t_ui_element	*editor_menu;
 	t_ui_element	*settings_menu;
+
+	t_list			*endless_maps; // char *
+	t_list			*story_maps; // char *
 }					t_launcher;
 
 #endif

@@ -35,6 +35,39 @@ void	user_events(t_launcher *launcher, SDL_Event e)
 		settings_events(launcher, e);
 }
 
+void	get_files_from_dir_with_file_ending(t_list **dest_list, char *directory, char *ending)
+{
+	DIR				*dirp;
+	struct dirent	*dp;
+
+	dirp = opendir(directory);
+	if (!dirp)
+	{
+		ft_printf("[%s] Couldn\'t open directory <%s>.\n",
+			__FUNCTION__, directory);
+		return ;
+	}
+	while (1)
+	{
+		dp = readdir(dirp);
+		if (!dp)
+			break ;
+		if (ft_strendswith(dp->d_name, ending))
+			add_to_list(dest_list, ft_strdup(dp->d_name), sizeof(char *));
+	}
+	closedir(dirp);
+}
+
+void	init_map_buttons_from_list(t_list *map_names, t_vec4 offset, t_ui_recipe *recipe, t_ui_element *parent)
+{
+	t_ui_element	*elem;
+
+	elem = ft_memalloc(sizeof(t_ui_element));
+	ui_button_new(parent->win, elem);
+	ui_element_set_parent(elem, parent, UI_TYPE_ELEMENT);
+	ui_element_edit(elem, recipe);
+}
+
 void	launcher_init(t_launcher *launcher)
 {
 	launcher->win_main = ui_list_get_window_by_id(launcher->layout.windows, "win_main");
@@ -69,6 +102,9 @@ void	launcher_init(t_launcher *launcher)
 	add_to_list(&launcher->menu_buttons, launcher->settings_button, sizeof(t_ui_element));
 
 	launcher->quit_button = ui_list_get_element_by_id(launcher->layout.elements, "quit_button");
+
+	get_files_from_dir_with_file_ending(&launcher->endless_maps, MAP_PATH, ".dnde");
+	get_files_from_dir_with_file_ending(&launcher->story_maps, MAP_PATH, ".dnds");
 }
 
 int	main(void)
