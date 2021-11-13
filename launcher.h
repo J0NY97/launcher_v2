@@ -5,6 +5,9 @@
 #include "libpf.h"
 #include "libui.h"
 
+# define GRAYISH_BLUEISH 0xff505168
+# define GREENISH 0xffb3c0a4
+
 typedef struct s_launcher
 {
 	t_ui_layout		layout;
@@ -22,6 +25,12 @@ typedef struct s_launcher
 	t_ui_element	*active_menu_button;
 
 	t_ui_element	*play_menu;
+	t_ui_element	*endless_button;
+	t_ui_element	*story_button;
+	t_ui_element	*active_play_button;
+	t_ui_element	*endless_menu;
+	t_ui_element	*story_menu;
+
 	t_ui_element	*editor_menu;
 	t_ui_element	*settings_menu;
 }					t_launcher;

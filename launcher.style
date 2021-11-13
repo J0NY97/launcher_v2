@@ -1,9 +1,20 @@
+Button
+{
+	text_color : 0xff000000;
+};
+
+Label
+{
+	text_color : 0xff000000;
+};
+
 // Meaning one of the main 3 menus, not actually "main menu";
 main_menu_prefab
 {
 	//x = 1/4, y = 1/3, w = parent->w - x - (parent->w / 8 / 2), h = parent->h - y - (parent->w / 8 / 2);
 	xywh : 320, 240, 880, 435;
-	bg_color : 0xffb0b0b0;
+	//bg_color : 0xffb0b0b0;
+	bg_color : 0xd0740000;
 };
 
 // The buttons that open the correlating menu;
@@ -11,13 +22,21 @@ menu_button_prefab
 {
 	//w = parent->w / 8, h = w / 2, y = parent->h / 3 + (i * (h + 25)), x = paernt->w / 8 / 2;
 	xywh : 80, 240, 160, 80;
-	bg_image_default : resources/mc_button_x3.png;
-	bg_image_hover : resources/mc_button_x3_hover.png;
-	bg_image_click : resources/mc_button_x3_click.png;
+	bg_image_default : resources/mc_button.png;
+	bg_image_hover : resources/mc_button_hover.png;
+	bg_image_click : resources/mc_button_click.png;
 	text_color : 0xff000000;
 	text_size : 48;
 	font : fonts/AmazDoom.ttf;
 	text_align : center;
+};
+
+menu_label_prefab
+{
+	font : fonts/AmazDoom.ttf;
+	text_size : 40;
+	text_pos : 10, 5, 100, 100;
+	text_color : 0xff000000;
 };
 
 win_main
@@ -46,6 +65,93 @@ play_menu : main_menu_prefab
 {
 };
 
+play_menu_label : menu_label_prefab
+{
+	title : play;
+};
+
+play_sub_menu_prefab
+{
+	// main_menu_prefab
+	//x = parent->w / 8 / 2, y = parent->w / 8 / 2, w = parent->w - x * 2, h = parent->h - y * 2;
+	//parent_xywh : 320, 240, 880, 435;
+	xywh : 55, 55, 770, 325;
+};
+
+play_sub_button_prefab
+{
+	xywh : 55, 35, 50, 20;
+};
+
+endless_button : play_sub_button_prefab
+{
+	title : Endless;
+	bg_color : 0xff505168;
+};
+
+story_button : play_sub_button_prefab
+{
+	x : 110;
+	title : Story;
+	bg_color : 0xffb3c0a4;
+};
+
+endless_menu : play_sub_menu_prefab
+{
+	bg_color : 0xff505168;
+};
+
+story_menu : play_sub_menu_prefab
+{
+	bg_color : 0xffb3c0a4;
+};
+
+difficulty_label
+{
+	xywh : 25, 25, 100, 20;
+	title : Difficulty:;
+};
+
+difficulty_dropdown
+{
+	xywh : 0, 20, 100, 20;
+	title : Difficulty;
+	text_color : 0xff000000;
+	text_pos : 5, 2, 100, 20;
+	bg_image_default : resources/mc_drop_x3.png;
+	bg_image_click : resources/mc_drop_x3_click.png;
+	bg_image_hover : resources/mc_drop_x3_hover.png;
+};
+
+drop_button_prefab
+{
+	w : 100;
+	text_color : 0xff000000;
+	bg_image_default : resources/mc_button_x3.png;
+	bg_image_click : resources/mc_button_x3_disable.png;
+	bg_image_hover : resources/mc_button_x3_hover.png;
+};
+
+difficulty_menu
+{
+	w : 100;
+};
+
+hard_button : drop_button_prefab
+{
+	title : Hard;
+};
+
+normal_button : drop_button_prefab
+{
+	title : Normal;
+};
+
+easy_button : drop_button_prefab
+{
+	title : Easy;
+};
+
 ///////////////////
 // Editor
 ///////////////////
@@ -58,6 +164,11 @@ editor_button : menu_button_prefab
 
 editor_menu : main_menu_prefab
 {
+};
+
+editor_menu_label : menu_label_prefab
+{
+	title : editor;
 };
 
 ///////////////////
@@ -74,8 +185,119 @@ settings_menu : main_menu_prefab
 {
 };
 
+settings_menu_label : menu_label_prefab
+{
+	title : settings;
+};
+
+settings_label_prefab
+{
+	xywh : 50, 50, 100, 20;
+};
+
+fov_label : settings_label_prefab
+{
+	title : FOV;
+};
+
+mouse_x_label : settings_label_prefab
+{
+	y : 80;
+	title : Mouse X Sensititivy;
+};
+
+mouse_y_label : settings_label_prefab
+{
+	y : 110;
+	title : Mouse Y Sensititivy;
+};
+
+texture_scale_label : settings_label_prefab
+{
+	y : 140;
+	title : Texture Scale;
+};
+
+developer_label : settings_label_prefab
+{
+	y : 170;
+	title : Developer;
+};
+
+resolution_drop_label : settings_label_prefab
+{
+	y : 200;
+	title : Resolution;
+};
+
+settings_slider_prefab
+{
+	xywh : 100, 0, 100, 20;
+};
+
+fov_slider : settings_slider_prefab
+{
+	value : 75, 50, 90;
+};
+
+mouse_x_slider : settings_slider_prefab
+{
+	value : 5, 1, 10;
+};
+
+mouse_y_slider : settings_slider_prefab
+{
+	value : 5, 1, 10;
+};
+
+texture_scale_slider : settings_slider_prefab
+{
+	value : 80, 30, 100;
+};
+
+developer_checkbox : settings_slider_prefab
+{
+	w : 20;
+	h : 20;
+};
+
+resolution_dropdown : settings_slider_prefab
+{
+	title : Resolution;
+	text_color : 0xff000000;
+	text_pos : 5, 2, 100, 20;
+	bg_image_default : resources/mc_drop_x3.png;
+	bg_image_click : resources/mc_drop_x3_click.png;
+	bg_image_hover : resources/mc_drop_x3_hover.png;
+};
+
+resolution_drop_menu
+{
+	w : 100;
+};
+
+2560x1390_button : drop_button_prefab
+{
+	title : 2560x1390;
+};
+
+1920x1080_button : drop_button_prefab
+{
+	title : 1920x1080;
+};
+
+1280x720_button : drop_button_prefab
+{
+	title : 1280x720;
+};
+
+1024x768_button : drop_button_prefab
+{
+	title : 1024x768;
+};
+
 ///////////////////
-// Settings
+// OTHER
 ///////////////////
 
 quit_button : menu_button_prefab

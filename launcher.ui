@@ -7,24 +7,77 @@ Window win_main
 		Button play_button {};
 		Menu play_menu
 		{
+			Label play_menu_label {};
+			Button story_button {};
 			Menu story_menu
 			{
 
 			};
+			Button endless_button {};
 			Menu endless_menu
 			{
-
+				Label difficulty_label
+				{
+					Dropdown difficulty_dropdown
+					{
+						Menu difficulty_menu
+						{
+							Button hard_button {};
+							Button normal_button {};
+							Button easy_button {};
+						};
+					};
+				};
 			};
 		};
 		Button editor_button {};
 		Menu editor_menu
 		{
-
+			Label editor_menu_label {};
 		};
 		Button settings_button {};
 		Menu settings_menu
 		{
+			Label settings_menu_label {};
 
+			Label fov_label
+			{
+				Slider fov_slider {};
+			};
+
+			Label mouse_x_label
+			{
+				Slider mouse_x_slider {};
+			};
+
+			Label mouse_y_label
+			{
+				Slider mouse_y_slider {};
+			};
+
+			Label texture_scale_label
+			{
+				Slider texture_scale_slider {};
+			};
+
+			Label developer_label
+			{
+				Checkbox developer_checkbox {};
+			};
+
+			Label resolution_drop_label
+			{
+				Dropdown resolution_dropdown
+				{
+					Menu resolution_drop_menu
+					{
+						Button 2560x1390_button {};
+						Button 1920x1080_button {};
+						Button 1280x720_button {};
+						Button 1024x768_button {};
+					};
+				};
+			};
 		};
 		Button quit_button {};
 	};

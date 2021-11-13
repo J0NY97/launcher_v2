@@ -2,7 +2,12 @@
 
 void	play_events(t_launcher *launcher, SDL_Event e)
 {
-	
+	if (launcher->endless_button->state == UI_STATE_CLICK)
+		launcher->active_play_button = launcher->endless_button;
+	if (launcher->story_button->state == UI_STATE_CLICK)
+		launcher->active_play_button = launcher->story_button;
+	launcher->endless_menu->show = launcher->active_play_button == launcher->endless_button;
+	launcher->story_menu->show = launcher->active_play_button == launcher->story_button;
 }
 
 void	editor_events(t_launcher *launcher, SDL_Event e)
@@ -39,6 +44,11 @@ void	launcher_init(t_launcher *launcher)
 
 	// Play Menu
 	launcher->play_menu = ui_list_get_element_by_id(launcher->layout.elements, "play_menu");
+	launcher->endless_menu = ui_list_get_element_by_id(launcher->layout.elements, "endless_menu");
+	launcher->story_menu = ui_list_get_element_by_id(launcher->layout.elements, "story_menu");
+	launcher->endless_button = ui_list_get_element_by_id(launcher->layout.elements, "endless_button");
+	launcher->story_button = ui_list_get_element_by_id(launcher->layout.elements, "story_button");
+	launcher->active_play_button = launcher->endless_button;
 
 	// Editor Menu
 	launcher->editor_menu = ui_list_get_element_by_id(launcher->layout.elements, "editor_menu");
@@ -51,11 +61,12 @@ void	launcher_init(t_launcher *launcher)
 	launcher->editor_button = ui_list_get_element_by_id(launcher->layout.elements, "editor_button");
 	launcher->settings_button = ui_list_get_element_by_id(launcher->layout.elements, "settings_button");
 
+	// Temp (REMOVE)
+	launcher->active_menu_button = launcher->settings_button;
+
 	add_to_list(&launcher->menu_buttons, launcher->play_button, sizeof(t_ui_element));
 	add_to_list(&launcher->menu_buttons, launcher->editor_button, sizeof(t_ui_element));
 	add_to_list(&launcher->menu_buttons, launcher->settings_button, sizeof(t_ui_element));
-
-//	ui_label_font_set(ui_button_get_label_element(launcher->play_button), "fonts/AmazDoom.ttf");
 
 	launcher->quit_button = ui_list_get_element_by_id(launcher->layout.elements, "quit_button");
 }
