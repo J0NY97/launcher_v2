@@ -1,5 +1,24 @@
 #include "launcher.h"
 
+t_ui_element	*ui_list_get_clicked_element(t_list *list)
+{
+	t_ui_element	*button;
+
+	while (list)
+	{
+		button = list->content;
+		if (button->state == UI_STATE_CLICK)
+			return (button);
+		list = list->next;
+	}
+	return (NULL);
+}
+
+void	start_game(t_settings settings, char *map)
+{
+	ft_printf("we want to start the game with map <%s>\n", map);	
+}
+
 void	play_events(t_launcher *launcher, SDL_Event e)
 {
 	if (launcher->endless_button->state == UI_STATE_CLICK)
@@ -8,11 +27,31 @@ void	play_events(t_launcher *launcher, SDL_Event e)
 		launcher->active_play_button = launcher->story_button;
 	launcher->endless_menu->show = launcher->active_play_button == launcher->endless_button;
 	launcher->story_menu->show = launcher->active_play_button == launcher->story_button;
+
+	t_ui_element	*clicked_map;
+
+	if (launcher->endless_menu->show)
+		clicked_map = ui_list_get_clicked_element(launcher->endless_map_buttons);
+	else if (launcher->story_menu->show)
+		clicked_map = ui_list_get_clicked_element(launcher->story_map_buttons);
+	else
+		clicked_map = NULL;
+	if (clicked_map)
+		start_game(launcher->settings, ui_button_get_text(clicked_map));
+}
+
+void	start_editor(t_settings settings, char *map)
+{
+	ft_printf("we want to start the editor with map <%s>\n", map);	
 }
 
 void	editor_events(t_launcher *launcher, SDL_Event e)
 {
+	t_ui_element	*clicked_map;
 
+	clicked_map = ui_list_get_clicked_element(launcher->editor_map_buttons);
+	if (clicked_map)
+		start_editor(launcher->settings, ui_button_get_text(clicked_map));
 }
 
 void	settings_events(t_launcher *launcher, SDL_Event e)
@@ -171,17 +210,20 @@ void	launcher_init(t_launcher *launcher)
 
 	launcher->quit_button = ui_list_get_element_by_id(launcher->layout.elements, "quit_button");
 
-	get_files_from_dir_with_file_ending(&launcher->endless_maps, MAP_PATH, ".dnde");
-	get_files_from_dir_with_file_ending(&launcher->story_maps, MAP_PATH, ".dnds");
+	get_files_from_dir_with_file_ending(&launcher->endless_map_names, MAP_PATH, ".dnde");
+	get_files_from_dir_with_file_ending(&launcher->story_map_names, MAP_PATH, ".dnds");
 
 	t_ui_recipe	*map_button_recipe;
 	map_button_recipe = ui_list_get_recipe_by_id(launcher->layout.recipes, "map_button_prefab");
 
-	init_map_buttons_from_list(launcher->endless_maps, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "endless_map_menu"));
-	init_map_buttons_from_list(launcher->story_maps, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "story_map_menu"));
+	init_map_buttons_from_list(launcher->endless_map_names, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "endless_map_menu"));
+	launcher->endless_map_buttons = ui_list_get_element_by_id(launcher->layout.elements, "endless_map_menu")->children;
+	init_map_buttons_from_list(launcher->story_map_names, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "story_map_menu"));
+	launcher->story_map_buttons = ui_list_get_element_by_id(launcher->layout.elements, "story_map_menu")->children;
 
-	init_map_buttons_from_list(launcher->endless_maps, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu"));
-	init_map_buttons_from_list(launcher->story_maps, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu"));
+	init_map_buttons_from_list(launcher->endless_map_names, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu"));
+	init_map_buttons_from_list(launcher->story_map_names, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu"));
+	launcher->editor_map_buttons = ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu")->children;
 
 	settings_init(&launcher->settings);
 	settings_elem_default(launcher);

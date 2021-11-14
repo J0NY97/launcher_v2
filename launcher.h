@@ -58,8 +58,11 @@ typedef struct s_launcher
 	t_ui_element	*resolution_dropdown;
 	t_settings		settings;
 
-	t_list			*endless_maps; // char *
-	t_list			*story_maps; // char *
+	t_list			*endless_map_buttons; // t_ui_element *
+	t_list			*story_map_buttons; // t_ui_element *
+	t_list			*editor_map_buttons; // t_ui_element *
+	t_list			*endless_map_names; // char *
+	t_list			*story_map_names; // char *
 }					t_launcher;
 
 #endif
