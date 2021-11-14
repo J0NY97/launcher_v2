@@ -34,9 +34,12 @@ typedef struct s_launcher
 	t_ui_element	*active_play_button;
 	t_ui_element	*endless_menu;
 	t_ui_element	*story_menu;
+	t_ui_element	*difficulty_dropdown;
 
 	t_ui_element	*editor_menu;
+
 	t_ui_element	*settings_menu;
+	t_ui_element	*resolution_dropdown;
 
 	t_list			*endless_maps; // char *
 	t_list			*story_maps; // char *

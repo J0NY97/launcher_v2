@@ -106,6 +106,31 @@ story_menu : play_sub_menu_prefab
 	bg_color : 0xffb3c0a4;
 };
 
+endless_map_menu
+{
+	xywh : 150, 25, 575, 275;
+	flag : render_children event_children;
+};
+
+endless_map_scrollbar
+{
+	xywh : 725, 25, 10, 275;
+	target : endless_map_menu;
+};
+
+story_map_menu
+{
+	xywh : 25, 25, 720, 275;
+	//xywh : 55, 55, 770, 325;
+	flag : render_children event_children;
+};
+
+story_map_scrollbar
+{
+	xywh : 725, 25, 10, 275;
+	target : story_map_menu;
+};
+
 difficulty_label
 {
 	xywh : 25, 25, 100, 20;
@@ -171,6 +196,18 @@ editor_menu_label : menu_label_prefab
 	title : editor;
 };
 
+editor_map_menu
+{
+	xywh : 25, 50, 810, 360;
+	flag : render_children event_children;
+};
+
+editor_map_scrollbar
+{
+	xywh : 835, 50, 10, 360;
+	target : editor_map_menu;
+};
+
 ///////////////////
 // Settings
 ///////////////////
@@ -233,6 +270,8 @@ resolution_drop_label : settings_label_prefab
 settings_slider_prefab
 {
 	xywh : 100, 0, 100, 20;
+	bg_color : 0x00;
+	bg_image : resources/slider.png;
 };
 
 fov_slider : settings_slider_prefab
@@ -259,6 +298,9 @@ developer_checkbox : settings_slider_prefab
 {
 	w : 20;
 	h : 20;
+	bg_image_default : resources/tick_box_off.png;
+	bg_image_hover : resources/tick_box_hover.png;
+	bg_image_click : resources/tick_box_on.png;
 };
 
 resolution_dropdown : settings_slider_prefab
@@ -304,4 +346,12 @@ quit_button : menu_button_prefab
 {
 	y : 555;
 	title : quit;
+};
+
+map_button_prefab
+{
+	xywh : 10, 10, 100, 50;
+	bg_image_default : resources/mc_button.png;
+	bg_image_hover : resources/mc_button_hover.png;
+	bg_image_click : resources/mc_button_click.png;
 };

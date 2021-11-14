@@ -11,7 +11,7 @@ Window win_main
 			Button story_button {};
 			Menu story_menu
 			{
-
+				Menu story_map_menu {};
 			};
 			Button endless_button {};
 			Menu endless_menu
@@ -28,12 +28,16 @@ Window win_main
 						};
 					};
 				};
+				Menu endless_map_menu {};
+				Scrollbar endless_map_scrollbar {};
 			};
 		};
 		Button editor_button {};
 		Menu editor_menu
 		{
 			Label editor_menu_label {};
+			Menu editor_map_menu {};
+			Scrollbar editor_map_scrollbar {};
 		};
 		Button settings_button {};
 		Menu settings_menu

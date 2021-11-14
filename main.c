@@ -52,20 +52,39 @@ void	get_files_from_dir_with_file_ending(t_list **dest_list, char *directory, ch
 		dp = readdir(dirp);
 		if (!dp)
 			break ;
-		if (ft_strendswith(dp->d_name, ending))
+		if (!ft_strendswith(dp->d_name, ending))
+		{
+			ft_printf("Git got %s %s\n", dp->d_name, ending);
 			add_to_list(dest_list, ft_strdup(dp->d_name), sizeof(char *));
+		}
 	}
 	closedir(dirp);
 }
 
-void	init_map_buttons_from_list(t_list *map_names, t_vec4 offset, t_ui_recipe *recipe, t_ui_element *parent)
+void	init_map_buttons_from_list(t_list *map_names, t_ui_recipe *recipe, t_ui_element *parent)
 {
 	t_ui_element	*elem;
+	t_vec2			pos;
+	int				amount_x;
+	int				i;
+	t_list			*curr;
 
-	elem = ft_memalloc(sizeof(t_ui_element));
-	ui_button_new(parent->win, elem);
-	ui_element_set_parent(elem, parent, UI_TYPE_ELEMENT);
-	ui_element_edit(elem, recipe);
+	i = ft_lstlen(parent->children) - 1;
+	amount_x = parent->pos.w / (recipe->pos.w + 10 + recipe->pos.x);
+	curr = map_names;
+	while (curr)
+	{
+		++i;
+		pos = vec2(recipe->pos.x + (i % (amount_x + 1) * (recipe->pos.w + 10)),
+				recipe->pos.y + (i / (amount_x + 1) * (recipe->pos.h + 10)));
+		elem = ft_memalloc(sizeof(t_ui_element));
+		ui_button_new(parent->win, elem);
+		ui_element_set_parent(elem, parent, UI_TYPE_ELEMENT);
+		ui_element_edit(elem, recipe);
+		ui_element_pos_set2(elem, pos);
+		ui_label_set_text(ui_button_get_label_element(elem), curr->content);
+		curr = curr->next;
+	}
 }
 
 void	launcher_init(t_launcher *launcher)
@@ -82,12 +101,16 @@ void	launcher_init(t_launcher *launcher)
 	launcher->endless_button = ui_list_get_element_by_id(launcher->layout.elements, "endless_button");
 	launcher->story_button = ui_list_get_element_by_id(launcher->layout.elements, "story_button");
 	launcher->active_play_button = launcher->endless_button;
+	launcher->difficulty_dropdown = ui_list_get_element_by_id(launcher->layout.elements, "difficulty_dropdown");
+	ui_dropdown_activate(launcher->difficulty_dropdown, ui_list_get_element_by_id(ui_dropdown_get_menu_element(launcher->difficulty_dropdown)->children, "normal_button"));
 
 	// Editor Menu
 	launcher->editor_menu = ui_list_get_element_by_id(launcher->layout.elements, "editor_menu");
 
 	// Settings Menu
 	launcher->settings_menu = ui_list_get_element_by_id(launcher->layout.elements, "settings_menu");
+	launcher->resolution_dropdown = ui_list_get_element_by_id(launcher->layout.elements, "resolution_dropdown");
+	ui_dropdown_activate(launcher->resolution_dropdown, ui_list_get_element_by_id(ui_dropdown_get_menu_element(launcher->resolution_dropdown)->children, "1920x1080_button"));
 
 	// Buttons
 	launcher->play_button = ui_list_get_element_by_id(launcher->layout.elements, "play_button");
@@ -105,6 +128,15 @@ void	launcher_init(t_launcher *launcher)
 
 	get_files_from_dir_with_file_ending(&launcher->endless_maps, MAP_PATH, ".dnde");
 	get_files_from_dir_with_file_ending(&launcher->story_maps, MAP_PATH, ".dnds");
+
+	t_ui_recipe	*map_button_recipe;
+	map_button_recipe = ui_list_get_recipe_by_id(launcher->layout.recipes, "map_button_prefab");
+
+	init_map_buttons_from_list(launcher->endless_maps, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "endless_map_menu"));
+	init_map_buttons_from_list(launcher->story_maps, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "story_map_menu"));
+
+	init_map_buttons_from_list(launcher->endless_maps, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu"));
+	init_map_buttons_from_list(launcher->story_maps, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu"));
 }
 
 int	main(void)
