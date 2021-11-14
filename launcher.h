@@ -12,6 +12,17 @@
 
 # define MAP_PATH "C:/Users/Jony/source/repos/map_editor_v2/maps/"
 
+typedef struct s_settings
+{
+	int				fov;
+	int				mouse_x;
+	int				mouse_y;
+	int				texture_scale;
+	int				developer;
+	int				width;
+	int				height;
+}					t_settings;
+
 typedef struct s_launcher
 {
 	t_ui_layout		layout;
@@ -39,7 +50,13 @@ typedef struct s_launcher
 	t_ui_element	*editor_menu;
 
 	t_ui_element	*settings_menu;
+	t_ui_element	*fov_slider;
+	t_ui_element	*mouse_x_slider;
+	t_ui_element	*mouse_y_slider;
+	t_ui_element	*texture_scale_slider;
+	t_ui_element	*developer_checkbox;
 	t_ui_element	*resolution_dropdown;
+	t_settings		settings;
 
 	t_list			*endless_maps; // char *
 	t_list			*story_maps; // char *

@@ -17,7 +17,48 @@ void	editor_events(t_launcher *launcher, SDL_Event e)
 
 void	settings_events(t_launcher *launcher, SDL_Event e)
 {
+	if (ui_slider_updated(launcher->fov_slider))
+		launcher->settings.fov = ui_slider_value_get(launcher->fov_slider);
+	if (ui_slider_updated(launcher->mouse_x_slider))
+		launcher->settings.mouse_x = ui_slider_value_get(launcher->mouse_x_slider);
+	if (ui_slider_updated(launcher->mouse_y_slider))
+		launcher->settings.mouse_y = ui_slider_value_get(launcher->mouse_y_slider);
+	if (ui_slider_updated(launcher->texture_scale_slider))
+		launcher->settings.texture_scale = ui_slider_value_get(launcher->texture_scale_slider);
+	launcher->settings.developer = launcher->developer_checkbox->is_toggle;
+	if (ui_dropdown_exit(launcher->resolution_dropdown))
+	{
+		char	**res;
 
+		res = ft_strsplit(ui_button_get_text(ui_dropdown_active(launcher->resolution_dropdown)), 'x');
+		launcher->settings.width = ft_atoi(res[0]);
+		launcher->settings.height = ft_atoi(res[1]);
+		ft_arraydel(res);
+	}
+}
+
+void	settings_init(t_settings *settings)
+{
+	settings->fov = 75;
+	settings->mouse_x = 5;
+	settings->mouse_y = 5;
+	settings->texture_scale = 80;
+	settings->developer = 0;
+	settings->width = 1920;
+	settings->height = 1080;
+}
+
+void	settings_elem_default(t_launcher *launcher)
+{
+	ui_slider_value_set(launcher->fov_slider, launcher->settings.fov);
+	ui_slider_value_set(launcher->mouse_x_slider, launcher->settings.mouse_x);
+	ui_slider_value_set(launcher->mouse_y_slider, launcher->settings.mouse_y);
+	ui_slider_value_set(launcher->texture_scale_slider, launcher->settings.texture_scale);
+	launcher->developer_checkbox->is_toggle = launcher->settings.developer;
+	char	*res;
+	res = ft_sprintf("%dx%d", launcher->settings.width, launcher->settings.height);
+	ui_dropdown_activate(launcher->resolution_dropdown, ui_list_get_button_with_text(ui_dropdown_get_menu_element(launcher->resolution_dropdown)->children, res));
+	ft_strdel(&res);
 }
 
 void	user_events(t_launcher *launcher, SDL_Event e)
@@ -53,10 +94,7 @@ void	get_files_from_dir_with_file_ending(t_list **dest_list, char *directory, ch
 		if (!dp)
 			break ;
 		if (!ft_strendswith(dp->d_name, ending))
-		{
-			ft_printf("Git got %s %s\n", dp->d_name, ending);
 			add_to_list(dest_list, ft_strdup(dp->d_name), sizeof(char *));
-		}
 	}
 	closedir(dirp);
 }
@@ -64,7 +102,6 @@ void	get_files_from_dir_with_file_ending(t_list **dest_list, char *directory, ch
 void	init_map_buttons_from_list(t_list *map_names, t_ui_recipe *recipe, t_ui_element *parent)
 {
 	t_ui_element	*elem;
-	t_vec2			pos;
 	float			amount_x;
 	int				i;
 	int				button_gap;
@@ -73,20 +110,18 @@ void	init_map_buttons_from_list(t_list *map_names, t_ui_recipe *recipe, t_ui_ele
 	i = ft_lstlen(parent->children) - 1;
 	button_gap = 10;
 	amount_x = parent->pos.w / (recipe->pos.w + button_gap + recipe->pos.x);
-	ft_printf("amount_x %.2f %d\n", amount_x, (int)amount_x);
 	while ((int)amount_x * (recipe->pos.w + button_gap) < parent->pos.w + button_gap)
 		button_gap++;
 	curr = map_names;
 	while (curr)
 	{
 		++i;
-		pos = vec2(recipe->pos.x + (i % (int)(amount_x) * (recipe->pos.w + button_gap)),
-				recipe->pos.y + (i / (int)(amount_x) * (recipe->pos.h + button_gap)));
 		elem = ft_memalloc(sizeof(t_ui_element));
 		ui_button_new(parent->win, elem);
 		ui_element_set_parent(elem, parent, UI_TYPE_ELEMENT);
 		ui_element_edit(elem, recipe);
-		ui_element_pos_set2(elem, pos);
+		ui_element_pos_set2(elem, vec2(recipe->pos.x + (i % (int)(amount_x) * (recipe->pos.w + button_gap)),
+				recipe->pos.y + (i / (int)(amount_x) * (recipe->pos.h + button_gap))));
 		ui_label_set_text(ui_button_get_label_element(elem), curr->content);
 		curr = curr->next;
 	}
@@ -114,6 +149,11 @@ void	launcher_init(t_launcher *launcher)
 
 	// Settings Menu
 	launcher->settings_menu = ui_list_get_element_by_id(launcher->layout.elements, "settings_menu");
+	launcher->fov_slider = ui_list_get_element_by_id(launcher->layout.elements, "fov_slider");
+	launcher->mouse_x_slider = ui_list_get_element_by_id(launcher->layout.elements, "mouse_x_slider");
+	launcher->mouse_y_slider = ui_list_get_element_by_id(launcher->layout.elements, "mouse_y_slider");
+	launcher->texture_scale_slider = ui_list_get_element_by_id(launcher->layout.elements, "texture_scale_slider");
+	launcher->developer_checkbox = ui_list_get_element_by_id(launcher->layout.elements, "developer_checkbox");
 	launcher->resolution_dropdown = ui_list_get_element_by_id(launcher->layout.elements, "resolution_dropdown");
 	ui_dropdown_activate(launcher->resolution_dropdown, ui_list_get_element_by_id(ui_dropdown_get_menu_element(launcher->resolution_dropdown)->children, "1920x1080_button"));
 
@@ -142,6 +182,9 @@ void	launcher_init(t_launcher *launcher)
 
 	init_map_buttons_from_list(launcher->endless_maps, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu"));
 	init_map_buttons_from_list(launcher->story_maps, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu"));
+
+	settings_init(&launcher->settings);
+	settings_elem_default(launcher);
 }
 
 int	main(void)
