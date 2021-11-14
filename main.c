@@ -65,18 +65,23 @@ void	init_map_buttons_from_list(t_list *map_names, t_ui_recipe *recipe, t_ui_ele
 {
 	t_ui_element	*elem;
 	t_vec2			pos;
-	int				amount_x;
+	float			amount_x;
 	int				i;
+	int				button_gap;
 	t_list			*curr;
 
 	i = ft_lstlen(parent->children) - 1;
-	amount_x = parent->pos.w / (recipe->pos.w + 10 + recipe->pos.x);
+	button_gap = 10;
+	amount_x = parent->pos.w / (recipe->pos.w + button_gap + recipe->pos.x);
+	ft_printf("amount_x %.2f %d\n", amount_x, (int)amount_x);
+	while ((int)amount_x * (recipe->pos.w + button_gap) < parent->pos.w + button_gap)
+		button_gap++;
 	curr = map_names;
 	while (curr)
 	{
 		++i;
-		pos = vec2(recipe->pos.x + (i % (amount_x + 1) * (recipe->pos.w + 10)),
-				recipe->pos.y + (i / (amount_x + 1) * (recipe->pos.h + 10)));
+		pos = vec2(recipe->pos.x + (i % (int)(amount_x) * (recipe->pos.w + button_gap)),
+				recipe->pos.y + (i / (int)(amount_x) * (recipe->pos.h + button_gap)));
 		elem = ft_memalloc(sizeof(t_ui_element));
 		ui_button_new(parent->win, elem);
 		ui_element_set_parent(elem, parent, UI_TYPE_ELEMENT);
@@ -118,7 +123,7 @@ void	launcher_init(t_launcher *launcher)
 	launcher->settings_button = ui_list_get_element_by_id(launcher->layout.elements, "settings_button");
 
 	// Temp (REMOVE)
-	launcher->active_menu_button = launcher->settings_button;
+	//launcher->active_menu_button = launcher->settings_button;
 
 	add_to_list(&launcher->menu_buttons, launcher->play_button, sizeof(t_ui_element));
 	add_to_list(&launcher->menu_buttons, launcher->editor_button, sizeof(t_ui_element));

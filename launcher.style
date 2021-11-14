@@ -8,6 +8,15 @@ Label
 	text_color : 0xff000000;
 };
 
+Scrollbar
+{
+};
+
+map_menu_prefab
+{
+	bg_color : 0xD0982902;
+};
+
 // Meaning one of the main 3 menus, not actually "main menu";
 main_menu_prefab
 {
@@ -81,53 +90,57 @@ play_sub_menu_prefab
 play_sub_button_prefab
 {
 	xywh : 55, 35, 50, 20;
+	text_color : 0xffbd3434;
 };
 
 endless_button : play_sub_button_prefab
 {
 	title : Endless;
-	bg_color : 0xff505168;
+	bg_color : 0xD0290000;
 };
 
 story_button : play_sub_button_prefab
 {
 	x : 110;
 	title : Story;
-	bg_color : 0xffb3c0a4;
+	bg_color : 0xD04E0000;
 };
 
-endless_menu : play_sub_menu_prefab
+endless_menu : play_sub_menu_prefab : map_menu_prefab
 {
-	bg_color : 0xff505168;
+	bg_color : 0xD0290000;
 };
 
 story_menu : play_sub_menu_prefab
 {
-	bg_color : 0xffb3c0a4;
+	//bg_color : 0xD0BD3434;
+	bg_color : 0xD04E0000;
 };
 
 endless_map_menu
 {
-	xywh : 150, 25, 575, 275;
+	//bg_color : 0xd0740000;
+	bg_color : 0x00000000;
+	xywh : 150, 25, 570, 275;
 	flag : render_children event_children;
 };
 
 endless_map_scrollbar
 {
-	xywh : 725, 25, 10, 275;
+	xywh : 725, 25, 20, 275;
 	target : endless_map_menu;
 };
 
-story_map_menu
+story_map_menu : map_menu_prefab
 {
 	xywh : 25, 25, 720, 275;
-	//xywh : 55, 55, 770, 325;
+	bg_color : 0x00000000;
 	flag : render_children event_children;
 };
 
 story_map_scrollbar
 {
-	xywh : 725, 25, 10, 275;
+	xywh : 725, 25, 20, 275;
 	target : story_map_menu;
 };
 
@@ -135,6 +148,7 @@ difficulty_label
 {
 	xywh : 25, 25, 100, 20;
 	title : Difficulty:;
+	text_color : 0xffbd3434;
 };
 
 difficulty_dropdown
@@ -196,15 +210,15 @@ editor_menu_label : menu_label_prefab
 	title : editor;
 };
 
-editor_map_menu
+editor_map_menu : map_menu_prefab
 {
-	xywh : 25, 50, 810, 360;
+	xywh : 25, 50, 805, 360;
 	flag : render_children event_children;
 };
 
 editor_map_scrollbar
 {
-	xywh : 835, 50, 10, 360;
+	xywh : 835, 50, 20, 360;
 	target : editor_map_menu;
 };
 
@@ -350,8 +364,11 @@ quit_button : menu_button_prefab
 
 map_button_prefab
 {
-	xywh : 10, 10, 100, 50;
+	xywh : 0, 0, 100, 50;
 	bg_image_default : resources/mc_button.png;
 	bg_image_hover : resources/mc_button_hover.png;
 	bg_image_click : resources/mc_button_click.png;
+	text_color : 0xff000000;
+	text_pos : 0, 0, 100, 50;
+	flag : render_on_parent;
 };
