@@ -113,7 +113,6 @@ endless_menu : play_sub_menu_prefab : map_menu_prefab
 
 story_menu : play_sub_menu_prefab
 {
-	//bg_color : 0xD0BD3434;
 	bg_color : 0xD04E0000;
 };
 
@@ -140,7 +139,8 @@ story_map_menu : map_menu_prefab
 
 story_map_scrollbar
 {
-	xywh : 725, 25, 20, 275;
+	//xywh : 25, 25, 720, 275; // parent
+	xywh : 745, 25, 20, 275;
 	target : story_map_menu;
 };
 

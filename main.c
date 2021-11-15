@@ -16,7 +16,29 @@ t_ui_element	*ui_list_get_clicked_element(t_list *list)
 
 void	start_game(t_settings settings, char *map)
 {
-	ft_printf("we want to start the game with map <%s>\n", map);	
+	char	**args;
+
+	ft_printf("we want to start the game with map <%s>\n", map);
+	args = ft_memalloc(sizeof(char *) * 10);
+	args[0] = ft_sprintf("%s", GAME_PATH"doom");
+	args[1] = ft_sprintf("%s%s", MAP_PATH, map);
+	args[2] = ft_sprintf("-size=%dx%d", settings.width, settings.height);
+	args[3] = ft_sprintf("-res=%.2f",
+			(float)settings.texture_scale / 100);
+	args[4] = ft_sprintf("-mouse=%.3fx%.3f",
+			(float)settings.mouse_x / 1000,
+			(float)settings.mouse_y / 1000);
+	args[5] = ft_sprintf("-diff=%d", settings.difficulty);
+	args[6] = ft_sprintf("-fov=%d", settings.fov);
+	args[7] = ft_strdup("-launcher");
+	if (settings.developer)
+		args[8] = ft_strdup("-debug");
+	else
+		args[8] = NULL;
+	args[9] = NULL;
+	ft_putarr(args);
+//	execv();
+	ft_arraydel(args);
 }
 
 void	play_events(t_launcher *launcher, SDL_Event e)
@@ -27,6 +49,21 @@ void	play_events(t_launcher *launcher, SDL_Event e)
 		launcher->active_play_button = launcher->story_button;
 	launcher->endless_menu->show = launcher->active_play_button == launcher->endless_button;
 	launcher->story_menu->show = launcher->active_play_button == launcher->story_button;
+
+	char			*diff_text;
+
+	if (ui_dropdown_exit(launcher->difficulty_dropdown))
+	{
+		diff_text = ui_button_get_text(ui_dropdown_active(launcher->difficulty_dropdown));
+		if (ft_strequ(diff_text, "Normal"))
+			launcher->settings.difficulty = 2;
+		else if (ft_strequ(diff_text, "Hard"))
+			launcher->settings.difficulty = 3;
+		else if (ft_strequ(diff_text, "Easy"))
+			launcher->settings.difficulty = 1;
+		else
+			launcher->settings.difficulty = 2;
+	}
 
 	t_ui_element	*clicked_map;
 
@@ -42,7 +79,17 @@ void	play_events(t_launcher *launcher, SDL_Event e)
 
 void	start_editor(t_settings settings, char *map)
 {
+	char	**args;
+
 	ft_printf("we want to start the editor with map <%s>\n", map);	
+	args = ft_memalloc(sizeof(char *) * 4);
+	args[0] = ft_sprintf("%s%s", EDITOR_PATH, "doom_editor");
+	args[1] = ft_sprintf("%s%s", MAP_PATH, map);
+	args[2] = ft_sprintf("-launcher");
+	args[4] = NULL;
+	ft_putarr(args);
+	//execv();
+	ft_arraydel(args);
 }
 
 void	editor_events(t_launcher *launcher, SDL_Event e)
@@ -85,6 +132,7 @@ void	settings_init(t_settings *settings)
 	settings->developer = 0;
 	settings->width = 1920;
 	settings->height = 1080;
+	settings->difficulty = 2;
 }
 
 void	settings_elem_default(t_launcher *launcher)

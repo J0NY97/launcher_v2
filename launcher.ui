@@ -8,11 +8,14 @@ Window win_main
 		Menu play_menu
 		{
 			Label play_menu_label {};
+
 			Button story_button {};
 			Menu story_menu
 			{
 				Menu story_map_menu {};
+				Scrollbar story_map_scrollbar {};
 			};
+
 			Button endless_button {};
 			Menu endless_menu
 			{

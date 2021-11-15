@@ -10,6 +10,8 @@
 # define GRAYISH_BLUEISH 0xff505168
 # define GREENISH 0xffb3c0a4
 
+# define GAME_PATH "C:/Users/Jony/source/repos/doom_nukem/game/"
+# define EDITOR_PATH "C:/Users/Jony/source/repos/map_editor_v2/"
 # define MAP_PATH "C:/Users/Jony/source/repos/map_editor_v2/maps/"
 
 typedef struct s_settings
@@ -21,6 +23,7 @@ typedef struct s_settings
 	int				developer;
 	int				width;
 	int				height;
+	int				difficulty;
 }					t_settings;
 
 typedef struct s_launcher
