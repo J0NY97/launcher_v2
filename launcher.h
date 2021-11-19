@@ -12,6 +12,7 @@
 
 # define GAME_PATH "C:/Users/Jony/source/repos/doom_nukem/game/"
 # define EDITOR_PATH "C:/Users/Jony/source/repos/map_editor_v2/"
+# define LAUNCHER_PATH "C:/Users/Jony/source/repos/launcher_v2/"
 # define MAP_PATH "C:/Users/Jony/source/repos/map_editor_v2/maps/"
 
 typedef struct s_settings

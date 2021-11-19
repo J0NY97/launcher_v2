@@ -43,18 +43,21 @@ void	start_game(t_settings settings, char *map)
 
 void	play_events(t_launcher *launcher, SDL_Event e)
 {
-	if (launcher->endless_button->state == UI_STATE_CLICK)
-		launcher->active_play_button = launcher->endless_button;
-	if (launcher->story_button->state == UI_STATE_CLICK)
-		launcher->active_play_button = launcher->story_button;
-	launcher->endless_menu->show = launcher->active_play_button == launcher->endless_button;
-	launcher->story_menu->show = launcher->active_play_button == launcher->story_button;
-
+	t_ui_element	*clicked_map;
 	char			*diff_text;
 
+	if (launcher->endless_button->state == UI_STATE_CLICK)
+		launcher->active_play_button = launcher->endless_button;
+	else if (launcher->story_button->state == UI_STATE_CLICK)
+		launcher->active_play_button = launcher->story_button;
+	launcher->endless_menu->show
+			= launcher->active_play_button == launcher->endless_button;
+	launcher->story_menu->show
+			= launcher->active_play_button == launcher->story_button;
 	if (ui_dropdown_exit(launcher->difficulty_dropdown))
 	{
-		diff_text = ui_button_get_text(ui_dropdown_active(launcher->difficulty_dropdown));
+		diff_text = ui_button_get_text(
+				ui_dropdown_active(launcher->difficulty_dropdown));
 		if (ft_strequ(diff_text, "Normal"))
 			launcher->settings.difficulty = 2;
 		else if (ft_strequ(diff_text, "Hard"))
@@ -64,15 +67,13 @@ void	play_events(t_launcher *launcher, SDL_Event e)
 		else
 			launcher->settings.difficulty = 2;
 	}
-
-	t_ui_element	*clicked_map;
-
+	clicked_map = NULL;
 	if (launcher->endless_menu->show)
-		clicked_map = ui_list_get_clicked_element(launcher->endless_map_buttons);
+		clicked_map = ui_list_get_clicked_element(
+				launcher->endless_map_buttons);
 	else if (launcher->story_menu->show)
-		clicked_map = ui_list_get_clicked_element(launcher->story_map_buttons);
-	else
-		clicked_map = NULL;
+		clicked_map = ui_list_get_clicked_element(
+				launcher->story_map_buttons);
 	if (clicked_map)
 		start_game(launcher->settings, ui_button_get_text(clicked_map));
 }
@@ -88,7 +89,7 @@ void	start_editor(t_settings settings, char *map)
 	args[2] = ft_sprintf("-launcher");
 	args[4] = NULL;
 	ft_putarr(args);
-	//execv();
+	execv(args[0], args);
 	ft_arraydel(args);
 }
 
@@ -103,20 +104,24 @@ void	editor_events(t_launcher *launcher, SDL_Event e)
 
 void	settings_events(t_launcher *launcher, SDL_Event e)
 {
+	char	**res;
+
 	if (ui_slider_updated(launcher->fov_slider))
 		launcher->settings.fov = ui_slider_value_get(launcher->fov_slider);
 	if (ui_slider_updated(launcher->mouse_x_slider))
-		launcher->settings.mouse_x = ui_slider_value_get(launcher->mouse_x_slider);
+		launcher->settings.mouse_x
+				= ui_slider_value_get(launcher->mouse_x_slider);
 	if (ui_slider_updated(launcher->mouse_y_slider))
-		launcher->settings.mouse_y = ui_slider_value_get(launcher->mouse_y_slider);
+		launcher->settings.mouse_y
+				= ui_slider_value_get(launcher->mouse_y_slider);
 	if (ui_slider_updated(launcher->texture_scale_slider))
-		launcher->settings.texture_scale = ui_slider_value_get(launcher->texture_scale_slider);
+		launcher->settings.texture_scale
+				= ui_slider_value_get(launcher->texture_scale_slider);
 	launcher->settings.developer = launcher->developer_checkbox->is_toggle;
 	if (ui_dropdown_exit(launcher->resolution_dropdown))
 	{
-		char	**res;
-
-		res = ft_strsplit(ui_button_get_text(ui_dropdown_active(launcher->resolution_dropdown)), 'x');
+		res = ft_strsplit(ui_button_get_text(
+					ui_dropdown_active(launcher->resolution_dropdown)), 'x');
 		launcher->settings.width = ft_atoi(res[0]);
 		launcher->settings.height = ft_atoi(res[1]);
 		ft_arraydel(res);
@@ -137,24 +142,31 @@ void	settings_init(t_settings *settings)
 
 void	settings_elem_default(t_launcher *launcher)
 {
+	char	*res;
+
 	ui_slider_value_set(launcher->fov_slider, launcher->settings.fov);
 	ui_slider_value_set(launcher->mouse_x_slider, launcher->settings.mouse_x);
 	ui_slider_value_set(launcher->mouse_y_slider, launcher->settings.mouse_y);
-	ui_slider_value_set(launcher->texture_scale_slider, launcher->settings.texture_scale);
+	ui_slider_value_set(launcher->texture_scale_slider,
+		launcher->settings.texture_scale);
 	launcher->developer_checkbox->is_toggle = launcher->settings.developer;
-	char	*res;
 	res = ft_sprintf("%dx%d", launcher->settings.width, launcher->settings.height);
-	ui_dropdown_activate(launcher->resolution_dropdown, ui_list_get_button_with_text(ui_dropdown_get_menu_element(launcher->resolution_dropdown)->children, res));
+	ui_dropdown_activate(launcher->resolution_dropdown,
+		ui_list_get_button_with_text(
+			ui_dropdown_get_menu_element(launcher->resolution_dropdown)->children,
+				res));
 	ft_strdel(&res);
 }
 
 void	user_events(t_launcher *launcher, SDL_Event e)
 {
 	ui_list_radio_event(launcher->menu_buttons, &launcher->active_menu_button);
-	launcher->play_menu->show = launcher->active_menu_button == launcher->play_button;
-	launcher->editor_menu->show = launcher->active_menu_button == launcher->editor_button;
-	launcher->settings_menu->show = launcher->active_menu_button == launcher->settings_button;
-
+	launcher->play_menu->show
+			= launcher->active_menu_button == launcher->play_button;
+	launcher->editor_menu->show
+			= launcher->active_menu_button == launcher->editor_button;
+	launcher->settings_menu->show
+			= launcher->active_menu_button == launcher->settings_button;
 	if (launcher->play_menu->show)
 		play_events(launcher, e);
 	if (launcher->editor_menu->show)
@@ -163,7 +175,8 @@ void	user_events(t_launcher *launcher, SDL_Event e)
 		settings_events(launcher, e);
 }
 
-void	get_files_from_dir_with_file_ending(t_list **dest_list, char *directory, char *ending)
+void	get_files_from_dir_with_file_ending(
+		t_list **dest_list, char *directory, char *ending)
 {
 	DIR				*dirp;
 	struct dirent	*dp;
@@ -186,19 +199,20 @@ void	get_files_from_dir_with_file_ending(t_list **dest_list, char *directory, ch
 	closedir(dirp);
 }
 
-void	init_map_buttons_from_list(t_list *map_names, t_ui_recipe *recipe, t_ui_element *parent)
+void	init_map_buttons_from_list(
+		t_list *map_names, t_ui_recipe *rcp, t_ui_element *parent)
 {
 	t_ui_element	*elem;
 	float			amount_x;
 	int				i;
-	int				button_gap;
+	int				butt_gap;
 	t_list			*curr;
 
 	i = ft_lstlen(parent->children) - 1;
-	button_gap = 10;
-	amount_x = parent->pos.w / (recipe->pos.w + button_gap + recipe->pos.x);
-	while ((int)amount_x * (recipe->pos.w + button_gap) < parent->pos.w + button_gap)
-		button_gap++;
+	butt_gap = 10;
+	amount_x = parent->pos.w / (rcp->pos.w + butt_gap + rcp->pos.x);
+	while ((int)amount_x * (rcp->pos.w + butt_gap) < parent->pos.w + butt_gap)
+		butt_gap++;
 	curr = map_names;
 	while (curr)
 	{
@@ -206,9 +220,10 @@ void	init_map_buttons_from_list(t_list *map_names, t_ui_recipe *recipe, t_ui_ele
 		elem = ft_memalloc(sizeof(t_ui_element));
 		ui_button_new(parent->win, elem);
 		ui_element_set_parent(elem, parent, UI_TYPE_ELEMENT);
-		ui_element_edit(elem, recipe);
-		ui_element_pos_set2(elem, vec2(recipe->pos.x + (i % (int)(amount_x) * (recipe->pos.w + button_gap)),
-				recipe->pos.y + (i / (int)(amount_x) * (recipe->pos.h + button_gap))));
+		ui_element_edit(elem, rcp);
+		ui_element_pos_set2(elem,
+				vec2(rcp->pos.x + (i % (int)(amount_x) * (rcp->pos.w + butt_gap)),
+					rcp->pos.y + (i / (int)(amount_x) * (rcp->pos.h + butt_gap))));
 		ui_label_set_text(ui_button_get_label_element(elem), curr->content);
 		curr = curr->next;
 	}
@@ -280,19 +295,15 @@ void	launcher_init(t_launcher *launcher)
 int	main(void)
 {
 	t_launcher	launcher;
-	int			run;
 	SDL_Event	e;
 
 	ui_sdl_init();
 	memset(&launcher, 0, sizeof(t_launcher));
-	ui_layout_load(&launcher.layout, "launcher.ui");
+	ui_layout_load(&launcher.layout, LAUNCHER_PATH"launcher.ui");
 	launcher_init(&launcher);
-	run = 1;
-	while (run)
+	while (!launcher.win_main->wants_to_close
+		&& launcher.quit_button->state != UI_STATE_CLICK)
 	{
-		if (launcher.win_main->wants_to_close
-			|| launcher.quit_button->state == UI_STATE_CLICK)
-			run = 0;
 		while (SDL_PollEvent(&e))
 		{
 			ui_layout_event(&launcher.layout, e);
@@ -300,8 +311,8 @@ int	main(void)
 			if (e.key.keysym.scancode == SDL_SCANCODE_P)
 				ui_element_print(launcher.play_button);
 		}
-		// TODO: FIX: first element doesnt want to show anything if we dont fill the win texture with full color;
-		ui_texture_fill(launcher.win_main->renderer, launcher.win_main->texture, 0xff00ff00);
+		ui_texture_fill(launcher.win_main->renderer,
+			launcher.win_main->texture, 0xff00ff00);
 		ui_layout_render(&launcher.layout);
 	}
 	return (0);
