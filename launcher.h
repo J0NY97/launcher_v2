@@ -69,4 +69,28 @@ typedef struct s_launcher
 	t_list			*story_map_names; // char *
 }					t_launcher;
 
+// Play
+void				play_menu_init(t_launcher *launcher);
+void				play_events(t_launcher *launcher);
+void				start_game(t_settings settings, char *map);
+
+// Editor
+void				editor_menu_init(t_launcher *launcher);
+void				editor_events(t_launcher *launcher);
+void				start_editor(char *map);
+
+// Settings
+void				settings_menu_init(t_launcher *launcher);
+void				settings_events(t_launcher *launcher);
+void				settings_init(t_settings *settings);
+void				settings_elem_default(t_launcher *launcher);
+
+// Map
+void				map_init(t_launcher *launcher);
+void				init_map_buttons_from_list(t_list *map_names, t_ui_recipe *rcp, t_ui_element *parent);
+
+// Help
+t_ui_element		*ui_list_get_clicked_element(t_list *list);
+void				get_files_from_dir_with_file_ending(t_list **dest_list, char *directory, char *ending);
+
 #endif

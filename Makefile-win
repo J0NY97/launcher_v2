@@ -1,6 +1,11 @@
 NAME = launcher
 SRCS = \
-	./main.c
+	./main.c \
+	./play.c \
+	./editor.c \
+	./settings.c \
+	./map.c \
+	./help.c \
 
 OBJS = $(SRCS:.c=.o)
 
