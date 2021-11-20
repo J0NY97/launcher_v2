@@ -41,19 +41,11 @@ void	start_game(t_settings settings, char *map)
 	ft_arraydel(args);
 }
 
-void	play_events(t_launcher *launcher, SDL_Event e)
+void	play_events(t_launcher *launcher)
 {
 	t_ui_element	*clicked_map;
 	char			*diff_text;
 
-	if (launcher->endless_button->state == UI_STATE_CLICK)
-		launcher->active_play_button = launcher->endless_button;
-	else if (launcher->story_button->state == UI_STATE_CLICK)
-		launcher->active_play_button = launcher->story_button;
-	launcher->endless_menu->show
-			= launcher->active_play_button == launcher->endless_button;
-	launcher->story_menu->show
-			= launcher->active_play_button == launcher->story_button;
 	if (ui_dropdown_exit(launcher->difficulty_dropdown))
 	{
 		diff_text = ui_button_get_text(
@@ -78,11 +70,11 @@ void	play_events(t_launcher *launcher, SDL_Event e)
 		start_game(launcher->settings, ui_button_get_text(clicked_map));
 }
 
-void	start_editor(t_settings settings, char *map)
+void	start_editor(char *map)
 {
 	char	**args;
 
-	ft_printf("we want to start the editor with map <%s>\n", map);	
+	ft_printf("we want to start the editor with map <%s>\n", map);
 	args = ft_memalloc(sizeof(char *) * 4);
 	args[0] = ft_sprintf("%s%s", EDITOR_PATH, "doom_editor");
 	args[1] = ft_sprintf("%s%s", MAP_PATH, map);
@@ -93,16 +85,16 @@ void	start_editor(t_settings settings, char *map)
 	ft_arraydel(args);
 }
 
-void	editor_events(t_launcher *launcher, SDL_Event e)
+void	editor_events(t_launcher *launcher)
 {
 	t_ui_element	*clicked_map;
 
 	clicked_map = ui_list_get_clicked_element(launcher->editor_map_buttons);
 	if (clicked_map)
-		start_editor(launcher->settings, ui_button_get_text(clicked_map));
+		start_editor(ui_button_get_text(clicked_map));
 }
 
-void	settings_events(t_launcher *launcher, SDL_Event e)
+void	settings_events(t_launcher *launcher)
 {
 	char	**res;
 
@@ -110,18 +102,18 @@ void	settings_events(t_launcher *launcher, SDL_Event e)
 		launcher->settings.fov = ui_slider_value_get(launcher->fov_slider);
 	if (ui_slider_updated(launcher->mouse_x_slider))
 		launcher->settings.mouse_x
-				= ui_slider_value_get(launcher->mouse_x_slider);
+			= ui_slider_value_get(launcher->mouse_x_slider);
 	if (ui_slider_updated(launcher->mouse_y_slider))
 		launcher->settings.mouse_y
-				= ui_slider_value_get(launcher->mouse_y_slider);
+			= ui_slider_value_get(launcher->mouse_y_slider);
 	if (ui_slider_updated(launcher->texture_scale_slider))
 		launcher->settings.texture_scale
-				= ui_slider_value_get(launcher->texture_scale_slider);
+			= ui_slider_value_get(launcher->texture_scale_slider);
 	launcher->settings.developer = launcher->developer_checkbox->is_toggle;
-	if (ui_dropdown_exit(launcher->resolution_dropdown))
+	if (ui_dropdown_exit(launcher->resolution_drop))
 	{
 		res = ft_strsplit(ui_button_get_text(
-					ui_dropdown_active(launcher->resolution_dropdown)), 'x');
+					ui_dropdown_active(launcher->resolution_drop)), 'x');
 		launcher->settings.width = ft_atoi(res[0]);
 		launcher->settings.height = ft_atoi(res[1]);
 		ft_arraydel(res);
@@ -150,29 +142,40 @@ void	settings_elem_default(t_launcher *launcher)
 	ui_slider_value_set(launcher->texture_scale_slider,
 		launcher->settings.texture_scale);
 	launcher->developer_checkbox->is_toggle = launcher->settings.developer;
-	res = ft_sprintf("%dx%d", launcher->settings.width, launcher->settings.height);
-	ui_dropdown_activate(launcher->resolution_dropdown,
+	res = ft_sprintf("%dx%d", launcher->settings.width,
+			launcher->settings.height);
+	ui_dropdown_activate(launcher->resolution_drop,
 		ui_list_get_button_with_text(
-			ui_dropdown_get_menu_element(launcher->resolution_dropdown)->children,
-				res));
+			ui_dropdown_get_menu_element(launcher->resolution_drop)->children,
+			res));
 	ft_strdel(&res);
 }
 
-void	user_events(t_launcher *launcher, SDL_Event e)
+void	user_events(t_launcher *launcher)
 {
 	ui_list_radio_event(launcher->menu_buttons, &launcher->active_menu_button);
 	launcher->play_menu->show
-			= launcher->active_menu_button == launcher->play_button;
+		= launcher->active_menu_button == launcher->play_button;
 	launcher->editor_menu->show
-			= launcher->active_menu_button == launcher->editor_button;
+		= launcher->active_menu_button == launcher->editor_button;
 	launcher->settings_menu->show
-			= launcher->active_menu_button == launcher->settings_button;
+		= launcher->active_menu_button == launcher->settings_button;
 	if (launcher->play_menu->show)
-		play_events(launcher, e);
+	{
+		if (launcher->endless_button->state == UI_STATE_CLICK)
+			launcher->active_play_button = launcher->endless_button;
+		else if (launcher->story_button->state == UI_STATE_CLICK)
+			launcher->active_play_button = launcher->story_button;
+		launcher->endless_menu->show
+			= launcher->active_play_button == launcher->endless_button;
+		launcher->story_menu->show
+			= launcher->active_play_button == launcher->story_button;
+		play_events(launcher);
+	}
 	if (launcher->editor_menu->show)
-		editor_events(launcher, e);
+		editor_events(launcher);
 	if (launcher->settings_menu->show)
-		settings_events(launcher, e);
+		settings_events(launcher);
 }
 
 void	get_files_from_dir_with_file_ending(
@@ -222,72 +225,117 @@ void	init_map_buttons_from_list(
 		ui_element_set_parent(elem, parent, UI_TYPE_ELEMENT);
 		ui_element_edit(elem, rcp);
 		ui_element_pos_set2(elem,
-				vec2(rcp->pos.x + (i % (int)(amount_x) * (rcp->pos.w + butt_gap)),
-					rcp->pos.y + (i / (int)(amount_x) * (rcp->pos.h + butt_gap))));
+			vec2(rcp->pos.x + (i % (int)(amount_x) * (rcp->pos.w + butt_gap)),
+				rcp->pos.y + (i / (int)(amount_x) * (rcp->pos.h + butt_gap))));
 		ui_label_set_text(ui_button_get_label_element(elem), curr->content);
 		curr = curr->next;
 	}
 }
 
+void	map_init(t_launcher *launcher)
+{
+	t_ui_recipe	*map_button_recipe;
+
+	get_files_from_dir_with_file_ending(&launcher->endless_map_names,
+		MAP_PATH, ".dnde");
+	get_files_from_dir_with_file_ending(&launcher->story_map_names,
+		MAP_PATH, ".dnds");
+	map_button_recipe
+		= ui_layout_get_recipe(&launcher->layout, "map_button_prefab");
+	init_map_buttons_from_list(launcher->endless_map_names, map_button_recipe,
+		ui_layout_get_element(&launcher->layout, "endless_map_menu"));
+	launcher->endless_map_buttons
+		= ui_layout_get_element(&launcher->layout,
+			"endless_map_menu")->children;
+	init_map_buttons_from_list(launcher->story_map_names, map_button_recipe,
+		ui_layout_get_element(&launcher->layout, "story_map_menu"));
+	launcher->story_map_buttons
+		= ui_layout_get_element(&launcher->layout, "story_map_menu")->children;
+	init_map_buttons_from_list(launcher->endless_map_names, map_button_recipe,
+		ui_layout_get_element(&launcher->layout, "editor_map_menu"));
+	init_map_buttons_from_list(launcher->story_map_names, map_button_recipe,
+		ui_layout_get_element(&launcher->layout, "editor_map_menu"));
+	launcher->editor_map_buttons
+		= ui_layout_get_element(&launcher->layout, "editor_map_menu")->children;
+}
+
+void	main_menu_init(t_launcher *launcher)
+{
+	launcher->main_menu
+		= ui_layout_get_element(&launcher->layout, "main_menu");
+	launcher->play_button
+		= ui_layout_get_element(&launcher->layout, "play_button");
+	launcher->editor_button
+		= ui_layout_get_element(&launcher->layout, "editor_button");
+	launcher->settings_button
+		= ui_layout_get_element(&launcher->layout, "settings_button");
+	add_to_list(&launcher->menu_buttons,
+		launcher->play_button, sizeof(t_ui_element));
+	add_to_list(&launcher->menu_buttons,
+		launcher->editor_button, sizeof(t_ui_element));
+	add_to_list(&launcher->menu_buttons,
+		launcher->settings_button, sizeof(t_ui_element));
+	launcher->quit_button
+		= ui_layout_get_element(&launcher->layout, "quit_button");
+}
+
+void	play_menu_init(t_launcher *launcher)
+{
+	launcher->play_menu
+		= ui_layout_get_element(&launcher->layout, "play_menu");
+	launcher->endless_menu
+		= ui_layout_get_element(&launcher->layout, "endless_menu");
+	launcher->story_menu
+		= ui_layout_get_element(&launcher->layout, "story_menu");
+	launcher->endless_button
+		= ui_layout_get_element(&launcher->layout, "endless_button");
+	launcher->story_button
+		= ui_layout_get_element(&launcher->layout, "story_button");
+	launcher->active_play_button = launcher->endless_button;
+	launcher->difficulty_dropdown
+		= ui_layout_get_element(&launcher->layout, "difficulty_dropdown");
+	ui_dropdown_activate(launcher->difficulty_dropdown,
+		ui_list_get_element_by_id(
+			ui_dropdown_get_menu_element(launcher->difficulty_dropdown)
+			->children, "normal_button"));
+}
+
+void	editor_menu_init(t_launcher *launcher)
+{
+	launcher->editor_menu
+		= ui_layout_get_element(&launcher->layout, "editor_menu");
+}
+
+void	settings_menu_init(t_launcher *launcher)
+{
+	launcher->settings_menu
+		= ui_layout_get_element(&launcher->layout, "settings_menu");
+	launcher->fov_slider
+		= ui_layout_get_element(&launcher->layout, "fov_slider");
+	launcher->mouse_x_slider
+		= ui_layout_get_element(&launcher->layout, "mouse_x_slider");
+	launcher->mouse_y_slider
+		= ui_layout_get_element(&launcher->layout, "mouse_y_slider");
+	launcher->texture_scale_slider
+		= ui_layout_get_element(&launcher->layout, "texture_scale_slider");
+	launcher->developer_checkbox
+		= ui_layout_get_element(&launcher->layout, "developer_checkbox");
+	launcher->resolution_drop
+		= ui_layout_get_element(&launcher->layout, "resolution_drop");
+	ui_dropdown_activate(launcher->resolution_drop,
+		ui_list_get_element_by_id(
+			ui_dropdown_get_menu_element(launcher->resolution_drop)
+			->children, "1920x1080_button"));
+}
+
 void	launcher_init(t_launcher *launcher)
 {
-	launcher->win_main = ui_list_get_window_by_id(launcher->layout.windows, "win_main");
-
-	// Main Menu
-	launcher->main_menu = ui_list_get_element_by_id(launcher->layout.elements, "main_menu");
-
-	// Play Menu
-	launcher->play_menu = ui_list_get_element_by_id(launcher->layout.elements, "play_menu");
-	launcher->endless_menu = ui_list_get_element_by_id(launcher->layout.elements, "endless_menu");
-	launcher->story_menu = ui_list_get_element_by_id(launcher->layout.elements, "story_menu");
-	launcher->endless_button = ui_list_get_element_by_id(launcher->layout.elements, "endless_button");
-	launcher->story_button = ui_list_get_element_by_id(launcher->layout.elements, "story_button");
-	launcher->active_play_button = launcher->endless_button;
-	launcher->difficulty_dropdown = ui_list_get_element_by_id(launcher->layout.elements, "difficulty_dropdown");
-	ui_dropdown_activate(launcher->difficulty_dropdown, ui_list_get_element_by_id(ui_dropdown_get_menu_element(launcher->difficulty_dropdown)->children, "normal_button"));
-
-	// Editor Menu
-	launcher->editor_menu = ui_list_get_element_by_id(launcher->layout.elements, "editor_menu");
-
-	// Settings Menu
-	launcher->settings_menu = ui_list_get_element_by_id(launcher->layout.elements, "settings_menu");
-	launcher->fov_slider = ui_list_get_element_by_id(launcher->layout.elements, "fov_slider");
-	launcher->mouse_x_slider = ui_list_get_element_by_id(launcher->layout.elements, "mouse_x_slider");
-	launcher->mouse_y_slider = ui_list_get_element_by_id(launcher->layout.elements, "mouse_y_slider");
-	launcher->texture_scale_slider = ui_list_get_element_by_id(launcher->layout.elements, "texture_scale_slider");
-	launcher->developer_checkbox = ui_list_get_element_by_id(launcher->layout.elements, "developer_checkbox");
-	launcher->resolution_dropdown = ui_list_get_element_by_id(launcher->layout.elements, "resolution_dropdown");
-	ui_dropdown_activate(launcher->resolution_dropdown, ui_list_get_element_by_id(ui_dropdown_get_menu_element(launcher->resolution_dropdown)->children, "1920x1080_button"));
-
-	// Buttons
-	launcher->play_button = ui_list_get_element_by_id(launcher->layout.elements, "play_button");
-	launcher->editor_button = ui_list_get_element_by_id(launcher->layout.elements, "editor_button");
-	launcher->settings_button = ui_list_get_element_by_id(launcher->layout.elements, "settings_button");
-
-	// Temp (REMOVE)
-	//launcher->active_menu_button = launcher->settings_button;
-
-	add_to_list(&launcher->menu_buttons, launcher->play_button, sizeof(t_ui_element));
-	add_to_list(&launcher->menu_buttons, launcher->editor_button, sizeof(t_ui_element));
-	add_to_list(&launcher->menu_buttons, launcher->settings_button, sizeof(t_ui_element));
-
-	launcher->quit_button = ui_list_get_element_by_id(launcher->layout.elements, "quit_button");
-
-	get_files_from_dir_with_file_ending(&launcher->endless_map_names, MAP_PATH, ".dnde");
-	get_files_from_dir_with_file_ending(&launcher->story_map_names, MAP_PATH, ".dnds");
-
-	t_ui_recipe	*map_button_recipe;
-	map_button_recipe = ui_list_get_recipe_by_id(launcher->layout.recipes, "map_button_prefab");
-
-	init_map_buttons_from_list(launcher->endless_map_names, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "endless_map_menu"));
-	launcher->endless_map_buttons = ui_list_get_element_by_id(launcher->layout.elements, "endless_map_menu")->children;
-	init_map_buttons_from_list(launcher->story_map_names, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "story_map_menu"));
-	launcher->story_map_buttons = ui_list_get_element_by_id(launcher->layout.elements, "story_map_menu")->children;
-
-	init_map_buttons_from_list(launcher->endless_map_names, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu"));
-	init_map_buttons_from_list(launcher->story_map_names, map_button_recipe, ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu"));
-	launcher->editor_map_buttons = ui_list_get_element_by_id(launcher->layout.elements, "editor_map_menu")->children;
-
+	launcher->win_main = ui_layout_get_window(&launcher->layout, "win_main");
+	main_menu_init(launcher);
+	play_menu_init(launcher);
+	editor_menu_init(launcher);
+	settings_menu_init(launcher);
+	map_init(launcher);
 	settings_init(&launcher->settings);
 	settings_elem_default(launcher);
 }
@@ -307,7 +355,7 @@ int	main(void)
 		while (SDL_PollEvent(&e))
 		{
 			ui_layout_event(&launcher.layout, e);
-			user_events(&launcher, e);
+			user_events(&launcher);
 			if (e.key.keysym.scancode == SDL_SCANCODE_P)
 				ui_element_print(launcher.play_button);
 		}

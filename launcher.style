@@ -317,7 +317,7 @@ developer_checkbox : settings_slider_prefab
 	bg_image_click : resources/tick_box_on.png;
 };
 
-resolution_dropdown : settings_slider_prefab
+resolution_drop : settings_slider_prefab
 {
 	title : Resolution;
 	text_color : 0xff000000;

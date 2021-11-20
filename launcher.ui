@@ -75,7 +75,7 @@ Window win_main
 
 			Label resolution_drop_label
 			{
-				Dropdown resolution_dropdown
+				Dropdown resolution_drop
 				{
 					Menu resolution_drop_menu
 					{

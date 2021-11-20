@@ -59,7 +59,7 @@ typedef struct s_launcher
 	t_ui_element	*mouse_y_slider;
 	t_ui_element	*texture_scale_slider;
 	t_ui_element	*developer_checkbox;
-	t_ui_element	*resolution_dropdown;
+	t_ui_element	*resolution_drop;
 	t_settings		settings;
 
 	t_list			*endless_map_buttons; // t_ui_element *
