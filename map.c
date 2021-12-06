@@ -52,7 +52,7 @@ void	init_map_buttons_from_list(
 		ui_element_pos_set2(elem,
 			vec2(rcp->pos.x + (i % (int)(amount_x) * (rcp->pos.w + butt_gap)),
 				rcp->pos.y + (i / (int)(amount_x) * (rcp->pos.h + butt_gap))));
-		ui_label_set_text(ui_button_get_label_element(elem), curr->content);
+		ui_button_set_text(elem, curr->content);
 		curr = curr->next;
 	}
 }

@@ -369,6 +369,7 @@ map_button_prefab
 	bg_image_hover : resources/mc_button_hover.png;
 	bg_image_click : resources/mc_button_click.png;
 	text_color : 0xff000000;
-	text_pos : 0, 0, 100, 50;
+	//text_pos : 0, 0, 100, 50;
 	flag : render_on_parent;
+	text_align : center;
 };

@@ -59,7 +59,18 @@ void	launcher_init(t_launcher *launcher)
 	settings_elem_default(launcher);
 }
 
-int	main(void)
+void	launcher_free(t_launcher *launcher)
+{
+	ui_layout_free(&launcher->layout);
+	ft_lstdel(&launcher->menu_buttons, &dummy_free_er);
+	ft_lstdel(&launcher->endless_map_names, &str_free);
+	ft_lstdel(&launcher->story_map_names, &str_free);
+	ft_lstdel(&launcher->endless_map_buttons, &dummy_free_er);
+	ft_lstdel(&launcher->story_map_buttons, &dummy_free_er);
+	ft_lstdel(&launcher->editor_map_buttons, &dummy_free_er);
+}
+
+int	real_main(void)
 {
 	t_launcher	launcher;
 	SDL_Event	e;
@@ -82,5 +93,13 @@ int	main(void)
 			launcher.win_main->texture, 0xff00ff00);
 		ui_layout_render(&launcher.layout);
 	}
+	launcher_free(&launcher);
+	return (0);
+}
+
+int	main(void)
+{
+	real_main();
+	system("leaks launcher");
 	return (0);
 }

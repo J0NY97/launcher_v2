@@ -10,10 +10,10 @@
 # define GRAYISH_BLUEISH 0xff505168
 # define GREENISH 0xffb3c0a4
 
-# define GAME_PATH "C:/Users/Jony/source/repos/doom_nukem/game/"
-# define EDITOR_PATH "C:/Users/Jony/source/repos/map_editor_v2/"
-# define LAUNCHER_PATH "C:/Users/Jony/source/repos/launcher_v2/"
-# define MAP_PATH "C:/Users/Jony/source/repos/map_editor_v2/maps/"
+# define GAME_PATH "../game"
+# define EDITOR_PATH "../map_editor_v2/"
+# define LAUNCHER_PATH "./"
+# define MAP_PATH "../map_editor_v2/maps/"
 
 typedef struct s_settings
 {
@@ -39,7 +39,7 @@ typedef struct s_launcher
 	t_ui_element	*editor_button;
 	t_ui_element	*settings_button;
 	t_ui_element	*quit_button;
-	
+
 	t_list			*menu_buttons; // t_ui_element *
 	t_ui_element	*active_menu_button;
 
@@ -62,9 +62,10 @@ typedef struct s_launcher
 	t_ui_element	*resolution_drop;
 	t_settings		settings;
 
-	t_list			*endless_map_buttons; // t_ui_element *
-	t_list			*story_map_buttons; // t_ui_element *
-	t_list			*editor_map_buttons; // t_ui_element *
+	t_list			*endless_map_buttons; // t_ui_element * (endless->menu->children) DONT FREE
+	t_list			*story_map_buttons; // t_ui_element * (story->menu->children) DONT FREE
+	t_list			*editor_map_buttons; // t_ui_element * (editor->menu->children) DONT FREE
+
 	t_list			*endless_map_names; // char *
 	t_list			*story_map_names; // char *
 }					t_launcher;
@@ -92,5 +93,6 @@ void				init_map_buttons_from_list(t_list *map_names, t_ui_recipe *rcp, t_ui_ele
 // Help
 t_ui_element		*ui_list_get_clicked_element(t_list *list);
 void				get_files_from_dir_with_file_ending(t_list **dest_list, char *directory, char *ending);
+void				str_free(void *str, size_t size);
 
 #endif

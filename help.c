@@ -37,3 +37,12 @@ void	get_files_from_dir_with_file_ending(
 	}
 	closedir(dirp);
 }
+
+/*
+ * Used when freeing the map texts from a t_list;
+*/
+void	str_free(void *str, size_t size)
+{
+	free(str);
+	(void)size;
+}

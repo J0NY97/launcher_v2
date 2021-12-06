@@ -1,5 +1,5 @@
-style : C:/Users/Jony/source/repos/launcher_v2/launcher.style;
-resource_dir : C:/Users/Jony/source/repos/launcher_v2/resources/;
+style : ./launcher.style;
+resource_dir : ./resources/;
 
 Window win_main
 {
