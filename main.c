@@ -65,9 +65,6 @@ void	launcher_free(t_launcher *launcher)
 	ft_lstdel(&launcher->menu_buttons, &dummy_free_er);
 	ft_lstdel(&launcher->endless_map_names, &str_free);
 	ft_lstdel(&launcher->story_map_names, &str_free);
-	ft_lstdel(&launcher->endless_map_buttons, &dummy_free_er);
-	ft_lstdel(&launcher->story_map_buttons, &dummy_free_er);
-	ft_lstdel(&launcher->editor_map_buttons, &dummy_free_er);
 }
 
 int	real_main(void)
