@@ -86,8 +86,6 @@ int	real_main(void)
 		{
 			ui_layout_event(&launcher.layout, e);
 			user_events(&launcher);
-			if (e.key.keysym.scancode == SDL_SCANCODE_P)
-				ui_element_print(launcher.play_button);
 		}
 		ui_texture_fill(launcher.win_main->renderer,
 			launcher.win_main->texture, 0xff00ff00);
