@@ -16,6 +16,7 @@ SDL_LIB_DIR	:= -L$(SDL_DIR)/lib
 SDL_LIB		:= -lSDL2 -lSDL2_ttf -lSDL2_image
 
 INCLUDES = \
+	-I ../ \
 	-I$(LIB_FOLDER)/libft \
 	-I$(LIB_FOLDER)/libpf \
 	-I$(LIB_FOLDER)/libui \

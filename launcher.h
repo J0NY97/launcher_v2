@@ -4,16 +4,12 @@
 #include "libft.h"
 #include "libpf.h"
 #include "libui.h"
+#include "path.h"
 
 #include <dirent.h>
 
 # define GRAYISH_BLUEISH 0xff505168
 # define GREENISH 0xffb3c0a4
-
-# define GAME_PATH "../game"
-# define EDITOR_PATH "../map_editor/"
-# define LAUNCHER_PATH "./"
-# define MAP_PATH "../map_editor/maps/"
 
 typedef struct s_settings
 {
