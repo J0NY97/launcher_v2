@@ -11,9 +11,9 @@
 # define GREENISH 0xffb3c0a4
 
 # define GAME_PATH "../game"
-# define EDITOR_PATH "../map_editor_v2/"
+# define EDITOR_PATH "../map_editor/"
 # define LAUNCHER_PATH "./"
-# define MAP_PATH "../map_editor_v2/maps/"
+# define MAP_PATH "../map_editor/maps/"
 
 typedef struct s_settings
 {
