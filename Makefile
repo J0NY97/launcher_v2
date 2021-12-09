@@ -6,12 +6,11 @@
 #    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 11:13:50 by nneronin          #+#    #+#              #
-#    Updated: 2021/12/09 13:12:07 by nneronin         ###   ########.fr        #
+#    Updated: 2021/12/09 13:41:37 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL_NAME	:= $(shell uname -s)
-name = dontcare
 
 all: 
 ifeq ($(SHELL_NAME), Darwin)
