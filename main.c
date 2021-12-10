@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/10 18:58:27 by nneronin          #+#    #+#             */
+/*   Updated: 2021/12/10 18:59:15 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "launcher.h"
 
 void	user_events(t_launcher *launcher)
@@ -67,7 +79,7 @@ void	launcher_free(t_launcher *launcher)
 	ft_lstdel(&launcher->story_map_names, &str_free);
 }
 
-int	real_main(void)
+int	main(void)
 {
 	t_launcher	launcher;
 	SDL_Event	e;
@@ -89,12 +101,5 @@ int	real_main(void)
 		ui_layout_render(&launcher.layout);
 	}
 	launcher_free(&launcher);
-	return (0);
-}
-
-int	main(void)
-{
-	real_main();
-	system("leaks launcher");
 	return (0);
 }

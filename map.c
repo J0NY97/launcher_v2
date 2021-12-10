@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/10 18:58:33 by nneronin          #+#    #+#             */
+/*   Updated: 2021/12/10 18:59:29 by nneronin         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "launcher.h"
 
 void	map_init(t_launcher *launcher)
@@ -50,8 +62,8 @@ void	init_map_buttons_from_list(
 		ui_element_set_parent(elem, parent, UI_TYPE_ELEMENT);
 		ui_element_edit(elem, rcp);
 		ui_element_pos_set2(elem,
-			vec2(rcp->pos.x + (i % (int)(amount_x) * (rcp->pos.w + butt_gap)),
-				rcp->pos.y + (i / (int)(amount_x) * (rcp->pos.h + butt_gap))));
+			vec2(rcp->pos.x + (i % (int)(amount_x) *(rcp->pos.w + butt_gap)),
+				rcp->pos.y + (i / (int)(amount_x) *(rcp->pos.h + butt_gap))));
 		ui_button_set_text(elem, curr->content);
 		curr = curr->next;
 	}
