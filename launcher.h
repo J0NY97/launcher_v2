@@ -6,20 +6,18 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:58:19 by nneronin          #+#    #+#             */
-/*   Updated: 2021/12/10 18:58:22 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/12/10 19:02:28 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LAUNCHER_H
 # define LAUNCHER_H
 
-#include "libft.h"
-#include "libpf.h"
-#include "libui.h"
-#include "path.h"
-
-#include <dirent.h>
-
+# include "libft.h"
+# include "libpf.h"
+# include "libui.h"
+# include "path.h"
+# include <dirent.h>
 # define GRAYISH_BLUEISH 0xff505168
 # define GREENISH 0xffb3c0a4
 
@@ -34,7 +32,17 @@ typedef struct s_settings
 	int				height;
 	int				difficulty;
 }					t_settings;
-
+/*
+ * t_list			*menu_buttons; // t_ui_element *
+ * t_list			*endless_map_buttons;
+ * 						t_ui_element * (endless->menu->children) DONT FREE
+ * t_list			*story_map_buttons; 
+ * 						t_ui_element * (story->menu->children) DONT FREE
+ * t_list			*editor_map_buttons;
+ * 						t_ui_element * (editor->menu->children) DONT FREE
+ * t_list			*endless_map_names; // char *
+ * t_list			*story_map_names; // char *
+ */
 typedef struct s_launcher
 {
 	t_ui_layout		layout;
@@ -48,7 +56,7 @@ typedef struct s_launcher
 	t_ui_element	*settings_button;
 	t_ui_element	*quit_button;
 
-	t_list			*menu_buttons; // t_ui_element *
+	t_list			*menu_buttons;
 	t_ui_element	*active_menu_button;
 
 	t_ui_element	*play_menu;
@@ -70,12 +78,12 @@ typedef struct s_launcher
 	t_ui_element	*resolution_drop;
 	t_settings		settings;
 
-	t_list			*endless_map_buttons; // t_ui_element * (endless->menu->children) DONT FREE
-	t_list			*story_map_buttons; // t_ui_element * (story->menu->children) DONT FREE
-	t_list			*editor_map_buttons; // t_ui_element * (editor->menu->children) DONT FREE
+	t_list			*endless_map_buttons;
+	t_list			*story_map_buttons;
+	t_list			*editor_map_buttons;
 
-	t_list			*endless_map_names; // char *
-	t_list			*story_map_names; // char *
+	t_list			*endless_map_names;
+	t_list			*story_map_names;
 }					t_launcher;
 
 // Play
@@ -96,11 +104,13 @@ void				settings_elem_default(t_launcher *launcher);
 
 // Map
 void				map_init(t_launcher *launcher);
-void				init_map_buttons_from_list(t_list *map_names, t_ui_recipe *rcp, t_ui_element *parent);
+void				init_map_buttons_from_list(t_list *map_names,
+						t_ui_recipe *rcp, t_ui_element *parent);
 
 // Help
 t_ui_element		*ui_list_get_clicked_element(t_list *list);
-void				get_files_from_dir_with_file_ending(t_list **dest_list, char *directory, char *ending);
+void				get_files_from_dir_with_file_ending(t_list **dest_list,
+						char *directory, char *ending);
 void				str_free(void *str, size_t size);
 
 #endif
