@@ -1,6 +1,6 @@
 style : ./launcher/launcher.style;
-resource_dir : ./launcher/resources/;
-resource_dir : ./launcher/fonts/;
+resource_dir : ./game/resources/ICON/;
+resource_dir : ./game/resources/BXPM/;
 
 Window win_main
 {
