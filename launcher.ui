@@ -1,5 +1,6 @@
 style : ./launcher/launcher.style;
 resource_dir : ./launcher/resources/;
+resource_dir : ./launcher/fonts/;
 
 Window win_main
 {

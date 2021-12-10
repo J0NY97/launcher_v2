@@ -60,7 +60,7 @@ all: $(ODIR) $(NAME)
 
 $(ODIR):
 	@mkdir -p $@
-	
+
 -include $(JOHNNY)
 
 $(ODIR)/%.o: $(CDIR)/%.c
@@ -69,14 +69,13 @@ $(ODIR)/%.o: $(CDIR)/%.c
 
 $(NAME): $(OBJS)
 	@gcc -o $(NAME) $(OBJS) $(INCLUDES) $(LIB_FOLDERS) $(CFLAGS)
-	@ln -s $(NAME) $(LINK)
-	
-clean: 
+
+clean:
 	@printf $(CYAN)"[INFO] $(NAME) cleaned!\n"$(RESET)
 	@rm -rf $(ODIR)
 
 fclean: clean
-	
+
 	@rm $(NAME)
 
 re: fclean all

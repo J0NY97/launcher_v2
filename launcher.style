@@ -31,18 +31,18 @@ menu_button_prefab
 {
 	//w = parent->w / 8, h = w / 2, y = parent->h / 3 + (i * (h + 25)), x = paernt->w / 8 / 2;
 	xywh : 80, 240, 160, 80;
-	bg_image_default : resources/mc_button.png;
-	bg_image_hover : resources/mc_button_hover.png;
-	bg_image_click : resources/mc_button_click.png;
+	bg_image_default : mc_button.png;
+	bg_image_hover : mc_button_hover.png;
+	bg_image_click : mc_button_click.png;
 	text_color : 0xff000000;
 	text_size : 48;
-	font : fonts/AmazDoom.ttf;
+	font : AmazDoom.ttf;
 	text_align : center;
 };
 
 menu_label_prefab
 {
-	font : fonts/AmazDoom.ttf;
+	font : AmazDoom.ttf;
 	text_size : 40;
 	text_pos : 10, 5, 100, 100;
 	text_color : 0xff000000;
@@ -57,7 +57,7 @@ main_menu
 {
 	xywh : 0, 0, 1280, 720;
 	bg_color : 0xffb0b0b0;
-	bg_image : resources/test2.bmp;
+	bg_image : test2.bmp;
 };
 
 ///////////////////
@@ -67,7 +67,7 @@ main_menu
 play_button : menu_button_prefab
 {
 	title : play;
-	font : fonts/AmazDoom.ttf;
+	font : AmazDoom.ttf;
 };
 
 play_menu : main_menu_prefab
@@ -157,18 +157,18 @@ difficulty_dropdown
 	title : Difficulty;
 	text_color : 0xff000000;
 	text_pos : 5, 2, 100, 20;
-	bg_image_default : resources/mc_drop_x3.png;
-	bg_image_click : resources/mc_drop_x3_click.png;
-	bg_image_hover : resources/mc_drop_x3_hover.png;
+	bg_image_default : mc_drop_x3.png;
+	bg_image_click : mc_drop_x3_click.png;
+	bg_image_hover : mc_drop_x3_hover.png;
 };
 
 drop_button_prefab
 {
 	w : 100;
 	text_color : 0xff000000;
-	bg_image_default : resources/mc_button_x3.png;
-	bg_image_click : resources/mc_button_x3_disable.png;
-	bg_image_hover : resources/mc_button_x3_hover.png;
+	bg_image_default : mc_button_x3.png;
+	bg_image_click : mc_button_x3_disable.png;
+	bg_image_hover : mc_button_x3_hover.png;
 };
 
 difficulty_menu
@@ -285,7 +285,7 @@ settings_slider_prefab
 {
 	xywh : 100, 0, 100, 20;
 	bg_color : 0x00;
-	bg_image : resources/slider.png;
+	bg_image : slider.png;
 };
 
 fov_slider : settings_slider_prefab
@@ -312,9 +312,9 @@ developer_checkbox : settings_slider_prefab
 {
 	w : 20;
 	h : 20;
-	bg_image_default : resources/tick_box_off.png;
-	bg_image_hover : resources/tick_box_hover.png;
-	bg_image_click : resources/tick_box_on.png;
+	bg_image_default : tick_box_off.png;
+	bg_image_hover : tick_box_hover.png;
+	bg_image_click : tick_box_on.png;
 };
 
 resolution_drop : settings_slider_prefab
@@ -322,9 +322,9 @@ resolution_drop : settings_slider_prefab
 	title : Resolution;
 	text_color : 0xff000000;
 	text_pos : 5, 2, 100, 20;
-	bg_image_default : resources/mc_drop_x3.png;
-	bg_image_click : resources/mc_drop_x3_click.png;
-	bg_image_hover : resources/mc_drop_x3_hover.png;
+	bg_image_default : mc_drop_x3.png;
+	bg_image_click : mc_drop_x3_click.png;
+	bg_image_hover : mc_drop_x3_hover.png;
 };
 
 resolution_drop_menu
@@ -365,9 +365,9 @@ quit_button : menu_button_prefab
 map_button_prefab
 {
 	xywh : 0, 0, 100, 50;
-	bg_image_default : resources/mc_button.png;
-	bg_image_hover : resources/mc_button_hover.png;
-	bg_image_click : resources/mc_button_click.png;
+	bg_image_default : mc_button.png;
+	bg_image_hover : mc_button_hover.png;
+	bg_image_click : mc_button_click.png;
 	text_color : 0xff000000;
 	//text_pos : 0, 0, 100, 50;
 	flag : render_on_parent;
