@@ -6,7 +6,7 @@
 #    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:08:22 by nneronin          #+#    #+#              #
-#    Updated: 2021/12/09 14:39:13 by nneronin         ###   ########.fr        #
+#    Updated: 2021/12/10 16:53:12 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS =	main.c \
 		map.c \
 		help.c
 
-NAME = launcher
+NAME = ../wolf3d
 ODIR = obj
 CDIR = .
 OBJS = $(addprefix $(ODIR)/,$(SRCS:.c=.o))
@@ -69,6 +69,7 @@ $(ODIR)/%.o: $(CDIR)/%.c
 
 $(NAME): $(OBJS)
 	@gcc -o $(NAME) $(OBJS) $(INCLUDES) $(LIB_FOLDERS) $(CFLAGS)
+	@ln -s $(NAME) $(LINK)
 	
 clean: 
 	@printf $(CYAN)"[INFO] $(NAME) cleaned!\n"$(RESET)

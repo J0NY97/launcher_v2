@@ -1,5 +1,5 @@
-style : ./launcher.style;
-resource_dir : ./resources/;
+style : ./launcher/launcher.style;
+resource_dir : ./launcher/resources/;
 
 Window win_main
 {

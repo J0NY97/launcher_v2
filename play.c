@@ -73,6 +73,6 @@ void	start_game(t_settings settings, char *map)
 		args[8] = NULL;
 	args[9] = NULL;
 	ft_putarr(args);
-//	execv(args[0], args);
+	execv(args[0], args);
 	ft_arraydel(args);
 }
