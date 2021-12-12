@@ -199,7 +199,6 @@ editor_button : menu_button_prefab
 {
 	y : 345;
 	title : editor;
-	show : 0;
 };
 
 editor_menu : main_menu_prefab
