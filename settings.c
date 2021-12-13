@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   settings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jsalmi <jsalmi@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:58:47 by nneronin          #+#    #+#             */
-/*   Updated: 2021/12/10 18:58:49 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/12/13 12:31:20 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@ void	settings_events(t_launcher *launcher)
 void	settings_init(t_settings *settings)
 {
 	settings->fov = 75;
-	settings->mouse_x = 5;
-	settings->mouse_y = 5;
+	settings->mouse_x = 2;
+	settings->mouse_y = 2;
 	settings->texture_scale = 80;
 	settings->developer = 0;
 	settings->width = 1920;
