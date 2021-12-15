@@ -6,7 +6,7 @@
 #    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:08:22 by nneronin          #+#    #+#              #
-#    Updated: 2021/12/10 16:53:12 by nneronin         ###   ########.fr        #
+#    Updated: 2021/12/15 09:43:08 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,10 @@ INCLUDES =		-I ./ \
 				-I $(LIB_DIR)/libpf \
 				-I $(LIB_DIR)/libbxpm \
 				-I $(LIB_DIR)/libui \
-				-I $(LIB_DIR)/SDL_Frameworks/SDL2.framework/Headers \
-				-I $(LIB_DIR)/SDL_Frameworks/SDL2_image.framework/Headers \
-				-I $(LIB_DIR)/SDL_Frameworks/SDL2_ttf.framework/Headers \
-				-F $(LIB_DIR)/SDL_Frameworks
+				-I $(LIB_DIR)/SDL_OSX/SDL2.framework/Headers \
+				-I $(LIB_DIR)/SDL_OSX/SDL2_image.framework/Headers \
+				-I $(LIB_DIR)/SDL_OSX/SDL2_ttf.framework/Headers \
+				-F $(LIB_DIR)/SDL_OSX
 
 LIB_FOLDERS = 	-L $(LIB_DIR)/libft -lft \
 				-L $(LIB_DIR)/libpf -lpf \
@@ -51,7 +51,7 @@ LIB_FOLDERS = 	-L $(LIB_DIR)/libft -lft \
 				-framework SDL2 \
 				-framework SDL2_image \
 				-framework SDL2_ttf \
-				-F $(LIB_DIR)/SDL_Frameworks
+				-F $(LIB_DIR)/SDL_OSX
 
 FLAGS = -Wall -Wextra -MMD
 
