@@ -66,13 +66,13 @@ void	start_game(t_settings settings, char *map)
 {
 	char	**args;
 
-	ft_printf("we want to start the game with map <%s>\n", map);
+	ft_printf("[%s] Start the game with map <%s>\n", __FUNCTION__, map);
 	args = ft_memalloc(sizeof(char *) * 10);
 	args[0] = ft_sprintf("%s", GAME_PATH"doom");
 	args[1] = ft_sprintf("%s%s", MAP_PATH, map);
 	args[2] = ft_sprintf("-size=%dx%d", settings.width, settings.height);
 	args[3] = ft_sprintf("-res=%.2f",
-			(float)settings.texture_scale / 100);
+			ceil((float)settings.texture_scale / 10) / 10);
 	args[4] = ft_sprintf("-mouse=%.3fx%.3f",
 			(float)settings.mouse_x / 1000,
 			(float)settings.mouse_y / 1000);

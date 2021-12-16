@@ -61,6 +61,14 @@ void	main_menu_init(t_launcher *launcher)
 
 void	launcher_init(t_launcher *launcher)
 {
+	memset(launcher, 0, sizeof(t_launcher));
+	ui_layout_load(&launcher->layout, LAUNCHER_PATH"launcher.ui");
+	if (!launcher->layout.style_file_content
+		|| !launcher->layout.layout_file_content)
+	{
+		ft_printf("[%s] Layout couldnt be loaded.\n", __FUNCTION__);
+		exit (0);
+	}
 	launcher->win_main = ui_layout_get_window(&launcher->layout, "win_main");
 	main_menu_init(launcher);
 	play_menu_init(launcher);
@@ -85,8 +93,6 @@ int	main(void)
 	SDL_Event	e;
 
 	ui_sdl_init();
-	memset(&launcher, 0, sizeof(t_launcher));
-	ui_layout_load(&launcher.layout, LAUNCHER_PATH"launcher.ui");
 	launcher_init(&launcher);
 	while (!launcher.win_main->wants_to_close
 		&& launcher.quit_button->state != UI_STATE_CLICK)
@@ -95,6 +101,8 @@ int	main(void)
 		{
 			ui_layout_event(&launcher.layout, e);
 			user_events(&launcher);
+			if (e.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+				launcher.win_main->wants_to_close = 1;
 		}
 		ui_texture_fill(launcher.win_main->renderer,
 			launcher.win_main->texture, 0xff00ff00);
