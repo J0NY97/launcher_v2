@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:58:27 by nneronin          #+#    #+#             */
-/*   Updated: 2021/12/18 10:22:02 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/12/18 10:34:26 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ void	launcher_init(t_launcher *launcher)
 		ft_printf("[%s] Layout couldnt be loaded.\n", __FUNCTION__);
 		exit (0);
 	}
-	ft_printf("style : %s\n", launcher->layout.style_file);
-	ft_putarr(launcher->layout.resource_dirs);
 	launcher->win_main = ui_layout_get_window(&launcher->layout, "win_main");
 	main_menu_init(launcher);
 	play_menu_init(launcher);
