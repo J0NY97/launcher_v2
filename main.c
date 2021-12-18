@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:58:27 by nneronin          #+#    #+#             */
-/*   Updated: 2021/12/10 18:59:15 by nneronin         ###   ########.fr       */
+/*   Updated: 2021/12/18 10:22:02 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,15 @@ void	main_menu_init(t_launcher *launcher)
 void	launcher_init(t_launcher *launcher)
 {
 	memset(launcher, 0, sizeof(t_launcher));
-	ui_layout_load(&launcher->layout, LAUNCHER_PATH"launcher.ui");
+	ui_layout_load(&launcher->layout, LAUNCHER_PATH, "launcher.ui");
 	if (!launcher->layout.style_file_content
 		|| !launcher->layout.layout_file_content)
 	{
 		ft_printf("[%s] Layout couldnt be loaded.\n", __FUNCTION__);
 		exit (0);
 	}
+	ft_printf("style : %s\n", launcher->layout.style_file);
+	ft_putarr(launcher->layout.resource_dirs);
 	launcher->win_main = ui_layout_get_window(&launcher->layout, "win_main");
 	main_menu_init(launcher);
 	play_menu_init(launcher);
@@ -87,7 +89,7 @@ void	launcher_free(t_launcher *launcher)
 	ft_lstdel(&launcher->story_map_names, &str_free);
 }
 
-int	main(void)
+int	realmain(void)
 {
 	t_launcher	launcher;
 	SDL_Event	e;
@@ -109,5 +111,12 @@ int	main(void)
 		ui_layout_render(&launcher.layout);
 	}
 	launcher_free(&launcher);
+	return (0);
+}
+
+int	main(void)
+{
+	realmain();
+	system("leaks wolf3d");
 	return (0);
 }

@@ -1,6 +1,6 @@
-style : ./launcher/launcher.style;
-resource_dir : ./game/resources/ICON/;
-resource_dir : ./game/resources/TTF/;
+style : launcher.style;
+resource_dir : ../game/resources/ICON/;
+resource_dir : ../game/resources/TTF/;
 
 Window win_main
 {
