@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:58:27 by nneronin          #+#    #+#             */
-/*   Updated: 2021/12/18 10:34:26 by jsalmi           ###   ########.fr       */
+/*   Updated: 2021/12/18 12:40:23 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	launcher_init(t_launcher *launcher)
 		exit (0);
 	}
 	launcher->win_main = ui_layout_get_window(&launcher->layout, "win_main");
+	ui_window_set_icon(launcher->win_main, LAUNCHER_PATH"DNDl.bmp");
 	main_menu_init(launcher);
 	play_menu_init(launcher);
 	editor_menu_init(launcher);
