@@ -112,5 +112,6 @@ t_ui_element		*ui_list_get_clicked_element(t_list *list);
 void				get_files_from_dir_with_file_ending(t_list **dest_list,
 						char *directory, char *ending);
 void				str_free(void *str, size_t size);
+void				launcher_free(t_launcher *launcher);
 
 #endif
