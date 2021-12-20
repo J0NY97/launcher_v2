@@ -89,7 +89,7 @@ typedef struct s_launcher
 // Play
 void				play_menu_init(t_launcher *launcher);
 void				play_events(t_launcher *launcher);
-void				start_game(t_settings settings, char *map);
+void				start_game(t_launcher *launcher, t_settings settings, char *map);
 
 // Editor
 void				editor_menu_init(t_launcher *launcher);

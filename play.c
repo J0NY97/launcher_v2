@@ -59,10 +59,11 @@ void	play_events(t_launcher *launcher)
 		clicked_map = ui_list_get_clicked_element(
 				launcher->story_map_buttons);
 	if (clicked_map)
-		start_game(launcher->settings, ui_button_get_text(clicked_map));
+		start_game(launcher, launcher->settings,
+			ui_button_get_text(clicked_map));
 }
 
-void	start_game(t_settings settings, char *map)
+void	start_game(t_launcher *launcher, t_settings settings, char *map)
 {
 	char	**args;
 
@@ -85,6 +86,7 @@ void	start_game(t_settings settings, char *map)
 		args[8] = NULL;
 	args[9] = NULL;
 	ft_putarr(args);
+	launcher_free(launcher);
 	execv(args[0], args);
 	ft_arraydel(args);
 }
