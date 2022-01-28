@@ -58,7 +58,7 @@ main_menu
 {
 	xywh : 0, 0, 1280, 720;
 	bg_color : 0xffb0b0b0;
-	bg_image : test2.bmp;
+	bg_image : test2.png;
 };
 
 ///////////////////

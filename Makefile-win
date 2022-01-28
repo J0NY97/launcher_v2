@@ -1,4 +1,4 @@
-NAME = launcher
+NAME = ../play
 SRCS = \
 	./main.c \
 	./play.c \

@@ -6,7 +6,7 @@
 #    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:08:22 by nneronin          #+#    #+#              #
-#    Updated: 2021/12/18 10:18:59 by jsalmi           ###   ########.fr        #
+#    Updated: 2022/01/28 11:27:25 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS =	main.c \
 		map.c \
 		help.c
 
-NAME = ../wolf3d
+NAME = ../play
 ODIR = obj
 CDIR = .
 OBJS = $(addprefix $(ODIR)/,$(SRCS:.c=.o))
