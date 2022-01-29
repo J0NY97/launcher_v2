@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:58:27 by nneronin          #+#    #+#             */
-/*   Updated: 2022/01/29 12:44:18 by nneronin         ###   ########.fr       */
+/*   Updated: 2022/01/29 13:54:27 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	realmain(void)
 	t_launcher	launcher;
 	SDL_Event	e;
 
+	unzip_resources();
 	ui_sdl_init();
 	launcher_init(&launcher);
 	while (!launcher.win_main->wants_to_close
@@ -116,13 +117,6 @@ int	realmain(void)
 
 int	main(void)
 {
-	if (access("./game/resources", F_OK))
-	{
-		if (!access("./resources.zip", F_OK))
-			system("unzip -q resources.zip -d ./game");
-		ft_printf("ZIP File not present.\n");
-		exit (1);
-	}
 	realmain();
 	system("leaks wolf3d");
 	return (0);

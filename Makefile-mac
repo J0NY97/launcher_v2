@@ -6,7 +6,7 @@
 #    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:08:22 by nneronin          #+#    #+#              #
-#    Updated: 2022/01/29 11:57:59 by nneronin         ###   ########.fr        #
+#    Updated: 2022/01/29 13:52:29 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ SRCS =	main.c \
 		settings.c \
 		settings2.c \
 		map.c \
-		help.c
+		help.c \
+		unzip.c
 
 NAME = ../play
 ODIR = obj
