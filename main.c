@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:58:27 by nneronin          #+#    #+#             */
-/*   Updated: 2021/12/18 12:40:23 by jsalmi           ###   ########.fr       */
+/*   Updated: 2022/01/29 12:44:18 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,13 @@ int	realmain(void)
 
 int	main(void)
 {
+	if (access("./game/resources", F_OK))
+	{
+		if (!access("./resources.zip", F_OK))
+			system("unzip -q resources.zip -d ./game");
+		ft_printf("ZIP File not present.\n");
+		exit (1);
+	}
 	realmain();
 	system("leaks wolf3d");
 	return (0);

@@ -6,7 +6,7 @@
 #    By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/09 13:08:22 by nneronin          #+#    #+#              #
-#    Updated: 2022/01/28 11:27:25 by nneronin         ###   ########.fr        #
+#    Updated: 2022/01/29 11:57:59 by nneronin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ LIB_FOLDERS = 	-L $(LIB_DIR)/libft -lft \
 				-framework SDL2_ttf \
 				-F $(LIB_DIR)/SDL_MAC
 
-FLAGS = -Wall -Wextra -MMD
+FLAGS = -Wall -Wextra -MMD -O3 -g -fsanitize=address
 
 all: $(ODIR) $(NAME)
 	@printf $(GREEN)"\e[J[INFO] $(NAME) ready!\n"$(RESET)
