@@ -70,6 +70,7 @@ void	settings_init(t_settings *settings)
 	settings->width = 1920;
 	settings->height = 1080;
 	settings->difficulty = 2;
+	get_settings_from_file(LAUNCHER_PATH"settings.cfg", settings);
 }
 
 void	settings_elem_default(t_launcher *launcher)

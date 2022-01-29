@@ -22,6 +22,7 @@ SRCS =	main.c \
 		play.c \
 		editor.c \
 		settings.c \
+		settings2.c \
 		map.c \
 		help.c
 

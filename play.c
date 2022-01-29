@@ -68,6 +68,7 @@ void	start_game(t_launcher *launcher, t_settings settings, char *map)
 	char	**args;
 
 	ft_printf("[%s] Start the game with map <%s>\n", __FUNCTION__, map);
+	set_settings_to_file(LAUNCHER_PATH"settings.cfg", &settings);
 	args = ft_memalloc(sizeof(char *) * 10);
 	args[0] = ft_sprintf("%s", GAME_PATH"doom");
 	args[1] = ft_sprintf("%s%s", MAP_PATH, map);

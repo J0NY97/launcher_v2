@@ -17,6 +17,7 @@
 # include "libpf.h"
 # include "libui.h"
 # include "path.h"
+# include "fcntl.h"
 # include <dirent.h>
 # define GRAYISH_BLUEISH 0xff505168
 # define GREENISH 0xffb3c0a4
@@ -89,7 +90,8 @@ typedef struct s_launcher
 // Play
 void				play_menu_init(t_launcher *launcher);
 void				play_events(t_launcher *launcher);
-void				start_game(t_launcher *launcher, t_settings settings, char *map);
+void				start_game(t_launcher *launcher, t_settings settings,
+						char *map);
 
 // Editor
 void				editor_menu_init(t_launcher *launcher);
@@ -101,6 +103,8 @@ void				settings_menu_init(t_launcher *launcher);
 void				settings_events(t_launcher *launcher);
 void				settings_init(t_settings *settings);
 void				settings_elem_default(t_launcher *launcher);
+void				get_settings_from_file(char *file, t_settings *settings);
+void				set_settings_to_file(char *file, t_settings *settings);
 
 // Map
 void				map_init(t_launcher *launcher);
