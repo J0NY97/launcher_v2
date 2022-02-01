@@ -333,9 +333,9 @@ resolution_drop_menu
 	w : 100;
 };
 
-2560x1390_button : drop_button_prefab
+2560x1440_button : drop_button_prefab
 {
-	title : 2560x1390;
+	title : 2560x1440;
 };
 
 1920x1080_button : drop_button_prefab
@@ -348,9 +348,9 @@ resolution_drop_menu
 	title : 1280x720;
 };
 
-1024x768_button : drop_button_prefab
+960x540_button : drop_button_prefab
 {
-	title : 1024x768;
+	title : 960x540;
 };
 
 ///////////////////

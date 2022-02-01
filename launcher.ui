@@ -80,10 +80,10 @@ Window win_main
 				{
 					Menu resolution_drop_menu
 					{
-						Button 2560x1390_button {};
+						Button 2560x1440_button {};
 						Button 1920x1080_button {};
 						Button 1280x720_button {};
-						Button 1024x768_button {};
+						Button 960x540_button {};
 					};
 				};
 			};
