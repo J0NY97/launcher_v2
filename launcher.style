@@ -50,7 +50,7 @@ menu_label_prefab
 
 win_main
 {
-	title : Wolf3D Launcher;
+	title : DND Launcher;
 	xywh : 100, 100, 1280, 720;
 };
 
