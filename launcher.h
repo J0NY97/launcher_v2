@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:58:19 by nneronin          #+#    #+#             */
-/*   Updated: 2021/12/10 19:02:28 by nneronin         ###   ########.fr       */
+/*   Updated: 2022/01/29 13:54:06 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,7 @@ void				get_files_from_dir_with_file_ending(t_list **dest_list,
 						char *directory, char *ending);
 void				str_free(void *str, size_t size);
 void				launcher_free(t_launcher *launcher);
+
+void				unzip_resources(void);
 
 #endif
