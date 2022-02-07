@@ -35,7 +35,7 @@ void	play_menu_init(t_launcher *launcher)
 
 void	play_events(t_launcher *launcher)
 {
-	t_ui_element	*clicked_map;
+	t_ui_element	*click_map;
 	char			*diff_text;
 
 	if (ui_dropdown_exit(launcher->difficulty_dropdown))
@@ -51,16 +51,15 @@ void	play_events(t_launcher *launcher)
 		else
 			launcher->settings.difficulty = 2;
 	}
-	clicked_map = NULL;
+	click_map = NULL;
 	if (launcher->endless_menu->show)
-		clicked_map = ui_list_get_clicked_element(
+		click_map = ui_list_get_clicked_element(
 				launcher->endless_map_buttons);
 	else if (launcher->story_menu->show)
-		clicked_map = ui_list_get_clicked_element(
+		click_map = ui_list_get_clicked_element(
 				launcher->story_map_buttons);
-	if (clicked_map)
-		start_game(launcher, launcher->settings,
-			ui_button_get_text(clicked_map));
+	if (click_map)
+		start_game(launcher, launcher->settings, ui_button_get_text(click_map));
 }
 
 void	start_game(t_launcher *launcher, t_settings settings, char *map)

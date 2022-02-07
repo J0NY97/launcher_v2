@@ -89,7 +89,7 @@ void	launcher_free(t_launcher *launcher)
 	ui_sdl_free();
 }
 
-int	realmain(void)
+int	main(void)
 {
 	t_launcher	launcher;
 	SDL_Event	e;
@@ -112,12 +112,5 @@ int	realmain(void)
 		ui_layout_render(&launcher.layout);
 	}
 	launcher_free(&launcher);
-	return (0);
-}
-
-int	main(void)
-{
-	realmain();
-	system("leaks wolf3d");
 	return (0);
 }
