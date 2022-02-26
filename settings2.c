@@ -6,7 +6,7 @@
 /*   By: jsalmi <jsalmi@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/29 08:44:26 by jsalmi            #+#    #+#             */
-/*   Updated: 2022/01/29 08:44:26 by jsalmi           ###   ########.fr       */
+/*   Updated: 2022/02/26 13:00:14 by jsalmi           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	set_settings_to_file(char *file, t_settings *settings)
 	char	*str;	
 	int		fd;
 
-	fd = open(file, O_CREAT | O_RDWR);
+	fd = open(file, O_CREAT | O_RDWR, S_IRUSR | S_IWUSR);
 	if (fd < 0)
 		return ;
 	str = ft_sprintf(
