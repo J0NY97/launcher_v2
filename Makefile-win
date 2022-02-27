@@ -56,7 +56,6 @@ clean:
 
 fclean:
 	@rm -f $(NAME)
-	@echo "$(NAME) was fcleaned."
 
 re: fclean $(LIBS) all
 
