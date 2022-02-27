@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:58:41 by nneronin          #+#    #+#             */
-/*   Updated: 2021/12/10 18:58:43 by nneronin         ###   ########.fr       */
+/*   Updated: 2022/02/27 11:16:55 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	start_game(t_launcher *launcher, t_settings settings, char *map)
 {
 	char	**args;
 
-	ft_printf("[%s] Start the game with map <%s>\n", __FUNCTION__, map);
 	set_settings_to_file(LAUNCHER_PATH"settings.cfg", &settings);
 	args = ft_memalloc(sizeof(char *) * 10);
 	args[0] = ft_sprintf("%s", GAME_PATH"doom");
@@ -85,7 +84,6 @@ void	start_game(t_launcher *launcher, t_settings settings, char *map)
 	else
 		args[8] = NULL;
 	args[9] = NULL;
-	ft_putarr(args);
 	launcher_free(launcher);
 	execv(args[0], args);
 	ft_arraydel(args);

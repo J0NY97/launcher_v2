@@ -6,7 +6,7 @@
 /*   By: nneronin <nneronin@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/10 18:58:04 by nneronin          #+#    #+#             */
-/*   Updated: 2021/12/10 18:58:07 by nneronin         ###   ########.fr       */
+/*   Updated: 2022/02/27 11:17:16 by nneronin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,11 @@ void	start_editor(char *map)
 {
 	char	**args;
 
-	ft_printf("we want to start the editor with map <%s>\n", map);
 	args = ft_memalloc(sizeof(char *) * 4);
 	args[0] = ft_sprintf("%s%s", EDITOR_PATH, "doom_editor");
 	args[1] = ft_sprintf("%s%s", MAP_PATH, map);
 	args[2] = ft_sprintf("-launcher");
 	args[4] = NULL;
-	ft_putarr(args);
 	execv(args[0], args);
 	ft_arraydel(args);
 }

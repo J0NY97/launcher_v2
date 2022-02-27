@@ -83,7 +83,6 @@ Window win_main
 						Button 2560x1440_button {};
 						Button 1920x1080_button {};
 						Button 1280x720_button {};
-						Button 960x540_button {};
 					};
 				};
 			};

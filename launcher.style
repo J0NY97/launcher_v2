@@ -29,7 +29,7 @@ main_menu_prefab
 // The buttons that open the correlating menu;
 menu_button_prefab
 {
-	//w = parent->w / 8, h = w / 2, y = parent->h / 3 + (i * (h + 25)), x = paernt->w / 8 / 2;
+	//w = parent->w / 8, h = w / 2, y = parent->h / 3 + (i * (h + 25)), x = parent->w / 8 / 2;
 	xywh : 80, 240, 160, 80;
 	bg_image_default : mc_button.png;
 	bg_image_hover : mc_button_hover.png;
@@ -255,13 +255,13 @@ fov_label : settings_label_prefab
 mouse_x_label : settings_label_prefab
 {
 	y : 80;
-	title : Mouse X Sensititivy;
+	title : Mouse X Sensitivity;
 };
 
 mouse_y_label : settings_label_prefab
 {
 	y : 110;
-	title : Mouse Y Sensititivy;
+	title : Mouse Y Sensitivity;
 };
 
 texture_scale_label : settings_label_prefab
@@ -346,11 +346,6 @@ resolution_drop_menu
 1280x720_button : drop_button_prefab
 {
 	title : 1280x720;
-};
-
-960x540_button : drop_button_prefab
-{
-	title : 960x540;
 };
 
 ///////////////////
